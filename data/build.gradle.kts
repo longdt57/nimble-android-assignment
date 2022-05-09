@@ -23,6 +23,9 @@ android {
         getByName(BuildType.RELEASE) {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+
+            buildConfigField("String", "API_KEY", "\"6GbE8dhoz519l2N_F99StqoOs6Tcmm1rXgda4q__rIw\"")
+            buildConfigField("String", "API_SECRET", "\"_ayfIm7BeUAhx2W1OUqi20fwO3uNxfo1QstyKlFCgHw\"")
         }
 
         getByName(BuildType.DEBUG) {
@@ -34,6 +37,9 @@ android {
              * Reference: https://developer.android.com/reference/tools/gradle-api/7.1/com/android/build/api/dsl/BuildType#istestcoverageenabled
              */
             isTestCoverageEnabled = true
+
+            buildConfigField("String", "API_KEY", "\"6GbE8dhoz519l2N_F99StqoOs6Tcmm1rXgda4q__rIw\"")
+            buildConfigField("String", "API_SECRET", "\"_ayfIm7BeUAhx2W1OUqi20fwO3uNxfo1QstyKlFCgHw\"")
         }
     }
 
