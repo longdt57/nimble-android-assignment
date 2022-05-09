@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="co.nimble.lee.assignment.ui.screens.authen.SignInFragment" />
+        android:name="co.nimble.lee.assignment.ui.screens.auth.SignInFragment" />
 
 </navigation>

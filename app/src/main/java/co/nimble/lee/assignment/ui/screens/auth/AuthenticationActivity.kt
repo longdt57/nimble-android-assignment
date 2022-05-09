@@ -1,4 +1,4 @@
-package co.nimble.lee.assignment.ui.screens.authen
+package co.nimble.lee.assignment.ui.screens.auth
 
 import android.view.LayoutInflater
 import androidx.activity.viewModels
