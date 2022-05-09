@@ -68,9 +68,12 @@
         style="@style/PrimaryButton"
         android:layout_width="0dp"
         android:layout_marginTop="@dimen/dimen_20"
+        android:enabled="false"
         android:text="@string/label_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordContainer" />
+
+    <include layout="@layout/view_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
