@@ -1,12 +1,20 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowBackground">@drawable/nb_background</item>
     </style>
+
+    <style name="FullScreenTheme" parent="AppTheme" />
 
     <style name="NB_EditText" parent="@style/N17R">
         <item name="android:layout_height">@dimen/field_height_56</item>
@@ -15,6 +23,8 @@
         <item name="android:textColorHint">@color/white_30</item>
         <item name="android:paddingStart">@dimen/dimen_12</item>
         <item name="android:paddingEnd">@dimen/dimen_12</item>
+        <item name="android:textCursorDrawable">@drawable/cursor_input_field</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="PrimaryButton" parent="N17SB">
