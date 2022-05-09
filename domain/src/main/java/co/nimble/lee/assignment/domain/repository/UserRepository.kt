@@ -9,4 +9,5 @@ interface UserRepository {
     suspend fun signInWithEmail(email: String, password: String): TokenInfo
     suspend fun saveAuthToken(tokenInfo: TokenInfo)
     suspend fun isLoggedIn(): Boolean
+    suspend fun logout()
 }
