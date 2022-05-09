@@ -11,6 +11,8 @@ plugins {
     id("plugins.jacoco-report")
 }
 
+addKtlint()
+
 val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
 
 android {

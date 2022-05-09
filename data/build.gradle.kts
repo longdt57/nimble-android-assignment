@@ -5,6 +5,8 @@ plugins {
     id("plugins.jacoco-report")
 }
 
+addKtlint()
+
 android {
     compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
