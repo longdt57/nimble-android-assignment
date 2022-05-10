@@ -29,6 +29,7 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
 
     override fun setupView() {
         startLogoAnim()
+        startViewAnim()
 
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
     }
@@ -69,8 +70,15 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
             binding.edtEmail.text.isNullOrBlank().not() && binding.edtPassword.text.isNullOrBlank().not()
     }
 
+    private fun startViewAnim() {
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.nb_anim_alpha)
+        binding.edtEmail.startAnimation(anim)
+        binding.passwordContainer.startAnimation(anim)
+        binding.btnLogin.startAnimation(anim)
+    }
+
     private fun startLogoAnim() {
-        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.sign_in_logo_anim)
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_sign_in_logo)
         binding.ivLogo.startAnimation(anim)
     }
 }

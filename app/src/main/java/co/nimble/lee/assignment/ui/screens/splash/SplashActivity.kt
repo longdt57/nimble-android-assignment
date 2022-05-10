@@ -29,7 +29,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun startLogoAnimation() {
-        val anim = AnimationUtils.loadAnimation(this, R.anim.splash_anim).apply {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.nb_anim_alpha).apply {
             setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) = Unit
                 override fun onAnimationRepeat(animation: Animation?) = Unit
