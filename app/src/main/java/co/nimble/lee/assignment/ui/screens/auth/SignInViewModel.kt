@@ -1,6 +1,6 @@
 package co.nimble.lee.assignment.ui.screens.auth
 
-import co.nimble.lee.assignment.domain.usecase.SignInWithEmailUseCase
+import co.nimble.lee.assignment.domain.usecase.SignInWithUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.util.DispatchersProvider
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
-    private val signInWithEmailUseCase: SignInWithEmailUseCase
+    private val signInWithEmailUseCase: SignInWithUseCase
 ) : BaseViewModel(dispatchers) {
 
     private val _signInSuccess = MutableSharedFlow<Unit>()
@@ -22,7 +22,7 @@ class SignInViewModel @Inject constructor(
     internal fun signInWithEmail(email: String, password: String) {
         showLoading()
         execute {
-            val param = SignInWithEmailUseCase.Param(email = email, password = password)
+            val param = SignInWithUseCase.Param(email = email, password = password)
             when (val result = signInWithEmailUseCase.invoke(parameters = param)) {
                 is UseCaseResult.Success -> {
                     _signInSuccess.emit(Unit)
