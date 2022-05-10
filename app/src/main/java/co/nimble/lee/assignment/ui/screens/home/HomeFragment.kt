@@ -10,6 +10,8 @@ import co.nimble.lee.assignment.lib.IsLoading
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
+import co.nimble.lee.assignment.ui.screens.ext.navigateToAuthentication
+import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import co.nimble.lee.assignment.ui.screens.second.SecondBundle
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -45,6 +47,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             btCompose.setOnClickListener {
                 viewModel.navigateToCompose()
             }
+
+            btLogout.setOnSingleClickListener {
+                viewModel.logout()
+            }
         }
     }
 
@@ -53,6 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.showLoading bindTo ::bindLoading
         viewModel.error bindTo toaster::display
         viewModel.navigator bindTo navigator::navigate
+        viewModel.logoutEvent bindTo :: navigateToAuthentication
     }
 
     private fun displayUsers(userUiModels: List<UserUiModel>) {
@@ -61,5 +68,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun bindLoading(isLoading: IsLoading) {
         viewLoadingBinding.pbLoading.visibleOrGone(isLoading)
+    }
+
+
+    private fun navigateToAuthentication(unit: Unit) {
+        requireActivity().apply {
+            navigateToAuthentication()
+            finish()
+        }
     }
 }

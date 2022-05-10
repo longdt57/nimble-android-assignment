@@ -49,14 +49,14 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs[BuildType.RELEASE]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://survey-api.nimblehq.co/api/v1/\"")
         }
 
         getByName(BuildType.DEBUG) {
             // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildType.DEBUG]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://survey-api.nimblehq.co/api/v1/\"")
             /**
              * From AGP 4.2.0, Jacoco generates the report incorrectly, and the report is missing
              * some code coverage from module. On the new version of Gradle, they introduce a new

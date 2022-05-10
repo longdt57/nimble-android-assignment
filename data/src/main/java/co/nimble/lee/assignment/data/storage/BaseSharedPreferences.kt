@@ -1,12 +1,14 @@
 package co.nimble.lee.assignment.data.storage
 
 import android.content.SharedPreferences
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 abstract class BaseSharedPreferences {
 
-    protected lateinit var sharedPreferences: SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
 
-    protected inline fun <reified T> get(key: String): T? =
+    inline fun <reified T> get(key: String): T? =
         if (sharedPreferences.contains(key)) {
             when (T::class) {
                 Boolean::class -> sharedPreferences.getBoolean(key, false) as T?
@@ -20,7 +22,7 @@ abstract class BaseSharedPreferences {
             null
         }
 
-    protected fun <T> set(key: String, value: T) {
+    fun <T> set(key: String, value: T) {
         sharedPreferences.execute {
             when (value) {
                 is Boolean -> it.putBoolean(key, value)
@@ -28,6 +30,46 @@ abstract class BaseSharedPreferences {
                 is Float -> it.putFloat(key, value)
                 is Long -> it.putLong(key, value)
                 is Int -> it.putInt(key, value)
+            }
+        }
+    }
+
+    inline fun <reified T> preferencesNullable(
+        key: String,
+        defaultValue: T? = null
+    ): ReadWriteProperty<Any, T?> {
+        return object : ReadWriteProperty<Any, T?> {
+            override fun getValue(
+                thisRef: Any,
+                property: KProperty<*>
+            ) = get(key) ?: defaultValue
+
+            override fun setValue(
+                thisRef: Any,
+                property: KProperty<*>,
+                value: T?
+            ) {
+                set(key, value)
+            }
+        }
+    }
+
+    inline fun <reified T> preferences(
+        key: String,
+        defaultValue: T
+    ): ReadWriteProperty<Any, T> {
+        return object : ReadWriteProperty<Any, T> {
+            override fun getValue(
+                thisRef: Any,
+                property: KProperty<*>
+            ) = get(key) ?: defaultValue
+
+            override fun setValue(
+                thisRef: Any,
+                property: KProperty<*>,
+                value: T
+            ) {
+                set(key, value)
             }
         }
     }

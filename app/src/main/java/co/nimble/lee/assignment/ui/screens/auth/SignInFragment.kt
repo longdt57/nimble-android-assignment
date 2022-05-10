@@ -3,9 +3,9 @@ package co.nimble.lee.assignment.ui.screens.auth
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
 import co.nimble.lee.assignment.databinding.NbFragmentSignInBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
+import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.ext.navigateToMain
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
 
-    private val viewModel by viewModels<SignInViewModel>()
+    private val viewModel: SignInViewModel by provideViewModels()
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 

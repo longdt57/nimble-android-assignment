@@ -14,14 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme">
 
-        <activity android:name=".ui.screens.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
         <activity
-            android:name=".ui.screens.auth.AuthenticationActivity"
+            android:name=".ui.screens.splash.SplashActivity"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +23,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.screens.MainActivity"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.screens.auth.AuthenticationActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>
