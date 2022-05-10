@@ -35,7 +35,7 @@ class UserRepositoryImpl constructor(
         tokenStorage.saveTokenInfo(tokenInfo)
     }
 
-    override suspend fun isLoggedIn(): Boolean = tokenStorage.accessToken.isNotBlank()
+    override fun isLoggedIn(): Boolean = tokenStorage.accessToken.isNotBlank()
 
     override suspend fun logout() {
         try {

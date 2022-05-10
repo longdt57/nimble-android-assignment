@@ -7,7 +7,7 @@ import co.nimble.lee.assignment.databinding.FragmentHomeBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
-import co.nimble.lee.assignment.model.UserUiModel
+import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.navigateToAuthentication
@@ -34,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setupView() {
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
+        binding.tabLayout.setupWithViewPager(binding.viewPager, true)
     }
 
     override fun bindViewEvents() {
@@ -55,14 +56,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun bindViewModel() {
-        viewModel.userUiModels bindTo ::displayUsers
+        viewModel.surveyUiModels bindTo ::displaySurveys
         viewModel.showLoading bindTo ::bindLoading
         viewModel.error bindTo toaster::display
         viewModel.navigator bindTo navigator::navigate
         viewModel.logoutEvent bindTo :: navigateToAuthentication
     }
 
-    private fun displayUsers(userUiModels: List<UserUiModel>) {
+    private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
         Timber.d("Result : $userUiModels")
     }
 
