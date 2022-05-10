@@ -2,7 +2,9 @@ package co.nimble.lee.assignment.ui.screens.auth
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.widget.doAfterTextChanged
+import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.NbFragmentSignInBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
@@ -26,6 +28,9 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
         }
 
     override fun setupView() {
+        startLogoAnim()
+        startViewAnim()
+
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
     }
 
@@ -63,5 +68,17 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
     private fun updateBtnLogin() {
         binding.btnLogin.isEnabled =
             binding.edtEmail.text.isNullOrBlank().not() && binding.edtPassword.text.isNullOrBlank().not()
+    }
+
+    private fun startViewAnim() {
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.nb_anim_alpha)
+        binding.edtEmail.startAnimation(anim)
+        binding.passwordContainer.startAnimation(anim)
+        binding.btnLogin.startAnimation(anim)
+    }
+
+    private fun startLogoAnim() {
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_sign_in_logo)
+        binding.ivLogo.startAnimation(anim)
     }
 }

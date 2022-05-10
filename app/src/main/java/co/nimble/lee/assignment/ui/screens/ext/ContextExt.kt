@@ -17,3 +17,11 @@ fun Context.navigateToAuthentication(bundle: Bundle? = null) {
     }
     startActivity(intent)
 }
+
+fun Context.getScreenWidth(): Int {
+    return resources.displayMetrics.widthPixels
+}
+
+fun Context.getScreenHeight(): Int {
+    return resources.displayMetrics.heightPixels
+}
