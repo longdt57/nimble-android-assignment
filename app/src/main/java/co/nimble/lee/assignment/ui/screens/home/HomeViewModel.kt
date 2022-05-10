@@ -7,10 +7,13 @@ import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.ui.base.NavigationEvent
 import co.nimble.lee.assignment.ui.screens.second.SecondBundle
 import co.nimble.lee.assignment.domain.usecase.GetUsersUseCase
+import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import co.nimble.lee.assignment.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,12 +30,17 @@ interface Output {
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase,
+    private val logOutUseCase: LogOutUseCase,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers), Output {
 
     private val _userUiModels = MutableStateFlow<List<UserUiModel>>(emptyList())
     override val userUiModels: StateFlow<List<UserUiModel>>
         get() = _userUiModels
+
+    private val _logoutEvent = MutableSharedFlow<Unit>()
+    val logoutEvent: SharedFlow<Unit>
+        get() = _logoutEvent
 
     init {
         fetchUsers()
@@ -58,6 +66,13 @@ class HomeViewModel @Inject constructor(
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
             hideLoading()
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            logOutUseCase.invoke(Unit)
+            _logoutEvent.emit(Unit)
         }
     }
 }

@@ -1,10 +1,12 @@
-package co.nimble.lee.assignment.ui.screens.home
+package co.nimblehq.coroutine.ui.screens.home
 
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
 import co.nimble.lee.assignment.test.TestNavigatorModule.mockMainNavigator
-import co.nimble.lee.assignment.test.getPrivateProperty
-import co.nimble.lee.assignment.test.replace
+import co.nimblehq.coroutine.test.getPrivateProperty
+import co.nimblehq.coroutine.test.replace
 import co.nimble.lee.assignment.ui.BaseFragmentTest
+import co.nimble.lee.assignment.ui.screens.home.HomeFragment
+import co.nimble.lee.assignment.ui.screens.home.HomeViewModel
 import dagger.hilt.android.testing.*
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe

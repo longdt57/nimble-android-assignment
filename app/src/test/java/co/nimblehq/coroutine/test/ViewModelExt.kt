@@ -1,4 +1,4 @@
-package co.nimble.lee.assignment.test
+package co.nimblehq.coroutine.test
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel

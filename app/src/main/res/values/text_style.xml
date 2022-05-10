@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="N17R">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/app_regular</item>
+    </style>
+
+    <style name="N15S">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/app_small</item>
+    </style>
+
+    <style name="N17SB">
+        <item name="android:textSize">17sp</item>
+        <item name="android:fontFamily">@font/app_semibold</item>
+    </style>
+</resources>
