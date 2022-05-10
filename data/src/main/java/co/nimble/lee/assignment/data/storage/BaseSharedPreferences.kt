@@ -54,6 +54,26 @@ abstract class BaseSharedPreferences {
         }
     }
 
+    inline fun <reified T> preferences(
+        key: String,
+        defaultValue: T
+    ): ReadWriteProperty<Any, T> {
+        return object : ReadWriteProperty<Any, T> {
+            override fun getValue(
+                thisRef: Any,
+                property: KProperty<*>
+            ) = get(key) ?: defaultValue
+
+            override fun setValue(
+                thisRef: Any,
+                property: KProperty<*>,
+                value: T
+            ) {
+                set(key, value)
+            }
+        }
+    }
+
     protected fun remove(key: String) {
         sharedPreferences.execute { it.remove(key) }
     }
