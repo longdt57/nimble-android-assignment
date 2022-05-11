@@ -1,6 +1,5 @@
 package co.nimble.lee.assignment.data.response
 
-
 import co.nimble.lee.assignment.domain.model.Survey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -64,6 +63,8 @@ data class SurveyResponse(
 fun SurveyResponse.toSurvey(): Survey {
     return Survey(
         id = id,
-        type = type
+        title = attributes?.title.orEmpty(),
+        description = attributes?.description.orEmpty(),
+        coverImageUrl = attributes?.coverImageUrl.orEmpty()
     )
 }

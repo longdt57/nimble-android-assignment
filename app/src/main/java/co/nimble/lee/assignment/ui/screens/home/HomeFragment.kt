@@ -27,6 +27,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 
+    private val surveyAdapter: SurveyPagerAdapter by lazy {
+        SurveyPagerAdapter { survey -> }
+    }
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = { inflater, container, attachToParent ->
             FragmentHomeBinding.inflate(inflater, container, attachToParent)
@@ -34,6 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setupView() {
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
+        binding.viewPager.adapter = surveyAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager, true)
     }
 
@@ -41,14 +46,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.bindViewEvents()
 
         with(binding) {
-            btNext.setOnClickListener {
-                viewModel.navigateToSecond(SecondBundle("From home"))
-            }
-
-            btCompose.setOnClickListener {
-                viewModel.navigateToCompose()
-            }
-
             btLogout.setOnSingleClickListener {
                 viewModel.logout()
             }
@@ -60,17 +57,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.showLoading bindTo ::bindLoading
         viewModel.error bindTo toaster::display
         viewModel.navigator bindTo navigator::navigate
-        viewModel.logoutEvent bindTo :: navigateToAuthentication
+        viewModel.logoutEvent bindTo ::navigateToAuthentication
     }
 
     private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
-        Timber.d("Result : $userUiModels")
+        surveyAdapter.submitList(userUiModels)
     }
 
     private fun bindLoading(isLoading: IsLoading) {
         viewLoadingBinding.pbLoading.visibleOrGone(isLoading)
     }
-
 
     private fun navigateToAuthentication(unit: Unit) {
         requireActivity().apply {
