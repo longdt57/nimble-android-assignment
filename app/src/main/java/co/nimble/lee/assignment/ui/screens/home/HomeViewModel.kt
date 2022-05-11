@@ -1,14 +1,14 @@
 package co.nimble.lee.assignment.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
-import co.nimble.lee.assignment.model.UserUiModel
-import co.nimble.lee.assignment.model.toUserUiModels
+import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.ui.base.NavigationEvent
 import co.nimble.lee.assignment.ui.screens.second.SecondBundle
-import co.nimble.lee.assignment.domain.usecase.GetUsersUseCase
 import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
+import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.toSurveyUiModel
 import co.nimble.lee.assignment.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 interface Output {
 
-    val userUiModels: StateFlow<List<UserUiModel>>
+    val surveyUiModels: StateFlow<List<SurveyUIModel>>
 
     fun navigateToSecond(bundle: SecondBundle)
 
@@ -29,21 +29,21 @@ interface Output {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getUsersUseCase: GetUsersUseCase,
+    private val getSurveyUseCase: GetSurveyUseCase,
     private val logOutUseCase: LogOutUseCase,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers), Output {
 
-    private val _userUiModels = MutableStateFlow<List<UserUiModel>>(emptyList())
-    override val userUiModels: StateFlow<List<UserUiModel>>
-        get() = _userUiModels
+    private val _surveyUiModels = MutableStateFlow<List<SurveyUIModel>>(emptyList())
+    override val surveyUiModels: StateFlow<List<SurveyUIModel>>
+        get() = _surveyUiModels
 
     private val _logoutEvent = MutableSharedFlow<Unit>()
     val logoutEvent: SharedFlow<Unit>
         get() = _logoutEvent
 
     init {
-        fetchUsers()
+        getSurveys()
     }
 
     override fun navigateToSecond(bundle: SecondBundle) {
@@ -58,11 +58,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun fetchUsers() {
+    private fun getSurveys() {
         showLoading()
         execute {
-            when (val result = getUsersUseCase.execute()) {
-                is UseCaseResult.Success -> _userUiModels.value = result.data.toUserUiModels()
+            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param())) {
+                is UseCaseResult.Success -> _surveyUiModels.value = result.data.toSurveyUiModel()
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
             hideLoading()

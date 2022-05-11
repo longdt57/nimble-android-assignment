@@ -35,9 +35,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 override fun onAnimationRepeat(animation: Animation?) = Unit
 
                 override fun onAnimationEnd(animation: Animation?) {
-                    lifecycleScope.launchWhenCreated {
-                        navigateToAuthenticationOrHome(viewModel.isLoggedIn())
-                    }
+                    navigateToAuthenticationOrHome(viewModel.isLoggedIn())
                 }
 
             })
