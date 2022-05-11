@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import com.bumptech.glide.Glide
 
 class SurveyPagerAdapter(
-    private val callback: ((SurveyUIModel) -> Unit)
+    private val callback: ((SurveyUIModel, Int) -> Unit)
 ) : PagerAdapter() {
 
     private val items = mutableListOf<SurveyUIModel>()
@@ -43,7 +44,7 @@ class SurveyPagerAdapter(
         val viewHolder = if (isLastSurvey) SurveyViewHolder(itemView)
         else LastSurveyViewHolder(itemView)
 
-        viewHolder.bindSurveyData(itemView, items[position])
+        viewHolder.bindSurveyData(items[position], position, callback)
 
         return itemView
     }
@@ -54,17 +55,22 @@ class SurveyPagerAdapter(
         }
     }
 
-    open class SurveyViewHolder(private val itemView: View) {
-        protected val tvTitle: TextView
+    open class SurveyViewHolder(val itemView: View) {
+        protected open val tvTitle: TextView
             get() = itemView.findViewById(R.id.tvTitle)
-        protected val tvDescription: TextView
+        protected open val tvDescription: TextView
             get() = itemView.findViewById(R.id.tvDescription)
-        protected val ivCover: ImageView
+        protected open val actionButton: ImageView
+            get() = itemView.findViewById(R.id.btnNext)
+        protected open val ivCover: ImageView
             get() = itemView.findViewById(R.id.ivCover)
 
-        open fun bindSurveyData(itemView: View, item: SurveyUIModel) {
+        open fun bindSurveyData(item: SurveyUIModel, position: Int, callback: (SurveyUIModel, Int) -> Unit) {
             tvTitle.text = item.title
             tvDescription.text = item.description
+            actionButton.setOnSingleClickListener {
+                callback.invoke(item, position)
+            }
 
             Glide.with(itemView.context)
                 .load(item.coverImageUrl)
@@ -73,6 +79,9 @@ class SurveyPagerAdapter(
         }
     }
 
-    class LastSurveyViewHolder(itemView: View) : SurveyViewHolder(itemView)
+    class LastSurveyViewHolder(itemView: View) : SurveyViewHolder(itemView) {
+        override val actionButton: ImageView
+            get() = itemView.findViewById(R.id.btnSurvey)
+    }
 
 }

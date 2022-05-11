@@ -2,7 +2,7 @@ package co.nimble.lee.assignment.ui.screens.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import co.nimblehq.common.extensions.visibleOrGone
+import androidx.viewpager.widget.ViewPager
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
@@ -12,9 +12,8 @@ import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.navigateToAuthentication
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
-import co.nimble.lee.assignment.ui.screens.second.SecondBundle
+import co.nimblehq.common.extensions.visibleOrGone
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,8 +26,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 
+    private val surveyViewPager: ViewPager
+        get() = binding.viewPager
+
     private val surveyAdapter: SurveyPagerAdapter by lazy {
-        SurveyPagerAdapter { survey -> }
+        SurveyPagerAdapter { survey, position ->
+            val isLastSurvey = position == surveyAdapter.count - 1
+            if (isLastSurvey) {
+
+            } else {
+                surveyViewPager.setCurrentItem(position + 1, true)
+            }
+        }
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
@@ -38,8 +47,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setupView() {
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
-        binding.viewPager.adapter = surveyAdapter
-        binding.tabLayout.setupWithViewPager(binding.viewPager, true)
+        surveyViewPager.adapter = surveyAdapter
+        binding.tabLayout.setupWithViewPager(surveyViewPager, true)
     }
 
     override fun bindViewEvents() {
