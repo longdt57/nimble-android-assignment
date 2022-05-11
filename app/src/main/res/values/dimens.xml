@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dimen_100">100dp</dimen>
-    <dimen name="dimen_24">24dp</dimen>
-    <dimen name="dimen_12">12dp</dimen>
-    <dimen name="radius_12">12dp</dimen>
+    <dimen name="dimen_56">56dp</dimen>
     <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+
+    <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
 
     <dimen name="button_height_56">56dp</dimen>
     <dimen name="field_height_56">56dp</dimen>
-    <dimen name="radius_10">10dp</dimen>
-    <dimen name="dimen_8">8dp</dimen>
 </resources>
