@@ -3,7 +3,6 @@ package co.nimble.lee.assignment.ui.screens.compose
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import co.nimble.lee.assignment.model.UserUiModel
-import co.nimble.lee.assignment.model.toUserUiModels
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.domain.usecase.GetUsersUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
@@ -48,7 +47,7 @@ class ComposeViewModel @Inject constructor(
         showLoading()
         execute {
             when (val result = getUsersUseCase.execute()) {
-                is UseCaseResult.Success -> _userUiModels.value = result.data.toUserUiModels()
+//                is UseCaseResult.Success -> _userUiModels.value = result.data.toUserUiModel()
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
             hideLoading()
