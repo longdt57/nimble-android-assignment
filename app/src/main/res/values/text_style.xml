@@ -6,9 +6,14 @@
         <item name="android:fontFamily">@font/app_regular</item>
     </style>
 
-    <style name="N28R">
-        <item name="android:textSize">17sp</item>
+    <style name="N28SB">
+        <item name="android:textSize">28sp</item>
         <item name="android:fontFamily">@font/app_semibold</item>
+    </style>
+
+    <style name="N34B">
+        <item name="android:textSize">34sp</item>
+        <item name="android:fontFamily">@font/app_bold</item>
     </style>
 
     <style name="N15S">

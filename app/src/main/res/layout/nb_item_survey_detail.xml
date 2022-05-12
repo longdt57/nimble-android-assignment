@@ -3,52 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/dimen_16"
-    tools:background="@drawable/nb_background">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/nb_background" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/N34B"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:layout_marginEnd="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_16"
+        android:ellipsize="end"
+        android:maxLines="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem/random" />
 
     <TextView
         android:id="@+id/tvDescription"
         style="@style/N17R"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/dimen_20"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/white_70"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnSurvey"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@tools:sample/lorem/random" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/N28R"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_16"
-        android:ellipsize="end"
-        android:maxLines="2"
-        app:layout_constraintBottom_toTopOf="@id/tvDescription"
-        app:layout_constraintEnd_toEndOf="@id/tvDescription"
-        app:layout_constraintStart_toStartOf="@id/tvDescription"
+        app:layout_constraintEnd_toEndOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
         android:id="@+id/btnSurvey"
+        style="@style/PrimaryButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_16"
+        android:paddingStart="@dimen/dimen_20"
+        android:paddingEnd="@dimen/dimen_20"
+        android:text="@string/start_survey"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_arrow_right_circle" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
