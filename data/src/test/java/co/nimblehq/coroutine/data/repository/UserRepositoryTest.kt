@@ -1,13 +1,10 @@
 package co.nimblehq.coroutine.data.repository
 
 import co.nimble.lee.assignment.data.repository.UserRepositoryImpl
-import co.nimble.lee.assignment.data.request.SignInRequest
 import co.nimble.lee.assignment.data.response.ObjectItem
-import co.nimble.lee.assignment.data.response.SignInResponse
-import co.nimble.lee.assignment.data.response.toTokenInfo
+import co.nimble.lee.assignment.data.response.UserResponse
+import co.nimble.lee.assignment.data.response.toUser
 import co.nimble.lee.assignment.data.service.ApiService
-import co.nimble.lee.assignment.data.service.AuthenticatedApiService
-import co.nimble.lee.assignment.data.storage.local.TokenStorage
 import co.nimble.lee.assignment.domain.repository.UserRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
@@ -22,50 +19,37 @@ import org.junit.Test
 class UserRepositoryTest {
 
     private lateinit var mockService: ApiService
-    private lateinit var authenticatedApiService: AuthenticatedApiService
-    private lateinit var tokenStorage: TokenStorage
     private lateinit var repository: UserRepository
 
-    private val signInRequest = SignInRequest(
-        email = "dev@nimblehq.co",
-        password = "12345678"
-    )
-
-    private val signInResponse = SignInResponse(
-        id = "id",
-        type = "token",
-        attributes = SignInResponse.Attributes(
-            accessToken = "lbxD2K2BjbYtNzz8xjvh2FvSKx838KBCf79q773kq2c",
-            tokenType = "Bearer",
-            expiresIn = 7200,
-            refreshToken = "3zJz2oW0njxlj_I3ghyUBF7ZfdQKYXd2n0ODlMkAjHc",
-            createdAt = 1597169495
+    private val userResponse = UserResponse(
+        id = "1",
+        type = "normal",
+        attributes = UserResponse.Attributes(
+            name = "name",
+            email = "email",
+            avatarUrl = "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_",
         )
     )
 
     @Before
     fun setup() {
         mockService = mockk()
-        authenticatedApiService = mockk()
-        tokenStorage = mockk()
-        repository = UserRepositoryImpl(mockService, authenticatedApiService, tokenStorage)
+        repository = UserRepositoryImpl(mockService)
     }
 
     @Test
-    fun `When calling sign in request successfully, it returns success response`() = runBlockingTest {
-        coEvery {
-            mockService.signInWithEmail(signInRequest)
-        } returns ObjectItem(signInResponse)
+    fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
+        coEvery { mockService.getUser() } returns ObjectItem(userResponse)
 
-        repository.signInWithEmail(email = signInRequest.email, signInRequest.password) shouldBe signInResponse.toTokenInfo()
+        repository.getUser() shouldBe userResponse.toUser()
     }
 
     @Test
-    fun `When calling sign in request failed, it returns wrapped error`() = runBlockingTest {
-        coEvery { mockService.signInWithEmail(signInRequest) } throws Throwable()
+    fun `When calling getUsers request failed, it returns wrapped error`() = runBlockingTest {
+        coEvery { mockService.getUser() } throws Throwable()
 
         shouldThrow<Throwable> {
-            repository.signInWithEmail(signInRequest.email, signInRequest.password)
+            repository.getUser()
         }
     }
 }

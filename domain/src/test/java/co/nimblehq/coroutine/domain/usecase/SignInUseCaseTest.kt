@@ -1,7 +1,7 @@
 package co.nimblehq.coroutine.domain.usecase
 
 import co.nimble.lee.assignment.domain.model.TokenInfo
-import co.nimble.lee.assignment.domain.repository.UserRepository
+import co.nimble.lee.assignment.domain.repository.OAuthRepository
 import co.nimble.lee.assignment.domain.usecase.SignInWithUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import io.kotest.matchers.shouldBe
@@ -15,7 +15,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class SignInUseCaseTest {
 
-    private lateinit var mockRepository: UserRepository
+    private lateinit var mockRepository: OAuthRepository
     private lateinit var usecase: SignInWithUseCase
 
     private val param = SignInWithUseCase.Param(
