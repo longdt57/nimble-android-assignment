@@ -1,8 +1,8 @@
 package co.nimble.lee.assignment.di.modules
 
 import co.nimble.lee.assignment.BuildConfig
+import co.nimble.lee.assignment.data.service.OAuthApiService
 import co.nimble.lee.assignment.data.service.ApiService
-import co.nimble.lee.assignment.data.service.AuthenticatedApiService
 import co.nimble.lee.assignment.data.service.providers.ApiServiceProvider
 import co.nimble.lee.assignment.data.service.providers.ConverterFactoryProvider
 import co.nimble.lee.assignment.data.service.providers.RetrofitProvider
@@ -47,12 +47,12 @@ class RetrofitModule {
         .build()
 
     @Provides
-    fun provideApiService(retrofit: Retrofit): ApiService =
+    fun provideOAuthApiService(retrofit: Retrofit): OAuthApiService =
         ApiServiceProvider.getApiService(retrofit)
 
     @Provides
-    fun provideAuthenticatedApiService(@AuthenticatedRetrofit retrofit: Retrofit): AuthenticatedApiService {
-        return retrofit.create(AuthenticatedApiService::class.java)
+    fun provideApiService(@AuthenticatedRetrofit retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }
 
