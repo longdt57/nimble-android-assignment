@@ -4,7 +4,7 @@ import co.nimble.lee.assignment.domain.model.User
 import co.nimble.lee.assignment.domain.repository.UserRepository
 import javax.inject.Inject
 
-class GetUsersUseCase @Inject constructor(private val userRepository: UserRepository) {
+class GetUserUseCase @Inject constructor(private val userRepository: UserRepository) {
 
     suspend fun execute(): UseCaseResult<User> {
         return try {

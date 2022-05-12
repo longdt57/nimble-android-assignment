@@ -26,7 +26,7 @@ data class SurveyResponse(
         @Json(name = "description")
         val description: String? = null,
         @Json(name = "inactive_at")
-        val inactiveAt: Any? = null,
+        val inactiveAt: String? = null,
         @Json(name = "is_active")
         val isActive: Boolean? = null,
         @Json(name = "survey_type")
@@ -65,6 +65,13 @@ fun SurveyResponse.toSurvey(): Survey {
         id = id,
         title = attributes?.title.orEmpty(),
         description = attributes?.description.orEmpty(),
-        coverImageUrl = attributes?.coverImageUrl.orEmpty()
+        coverImageUrl = attributes?.coverImageUrl.orEmpty(),
+        type = type,
+        thankEmailAboveThreshold = attributes?.thankEmailAboveThreshold,
+        isActive = attributes?.isActive,
+        createdAt = attributes?.createdAt,
+        activeAt = attributes?.activeAt,
+        inactiveAt = attributes?.inactiveAt,
+        surveyType = attributes?.surveyType
     )
 }

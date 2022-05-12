@@ -2,7 +2,7 @@ package co.nimble.lee.assignment.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
 import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
-import co.nimble.lee.assignment.domain.usecase.GetUsersUseCase
+import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.ui.base.NavigationEvent
 import co.nimble.lee.assignment.ui.screens.second.SecondBundle
@@ -34,7 +34,7 @@ interface Output {
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getSurveyUseCase: GetSurveyUseCase,
-    private val getUserUseCase: GetUsersUseCase,
+    private val getUserUseCase: GetUserUseCase,
     private val logOutUseCase: LogOutUseCase,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers), Output {
