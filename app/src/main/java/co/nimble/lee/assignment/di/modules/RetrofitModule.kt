@@ -43,6 +43,6 @@ class RetrofitModule {
 
     @Provides
     fun provideApiService(retrofit: AccessTokenServiceBuilder): ApiService {
-        return retrofit.create(ApiService::class.java, provideBaseApiUrl())
+        return retrofit.create(ApiService::class.java, BuildConfig.BASE_API_URL)
     }
 }
