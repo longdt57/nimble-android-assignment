@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getSurveys() {
+    fun getSurveys() {
         showLoading()
         execute {
             when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param())) {
@@ -71,6 +71,10 @@ class HomeViewModel @Inject constructor(
             }
             hideLoading()
         }
+    }
+
+    fun loadMoreSurvey() {
+
     }
 
     private fun getUser() {

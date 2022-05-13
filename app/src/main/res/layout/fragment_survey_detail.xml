@@ -5,14 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_arrow_left_white" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCover"
         android:layout_width="match_parent"
@@ -21,6 +13,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/nb_background" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_36"
+        android:padding="@dimen/dimen_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_white" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -35,7 +38,7 @@
         android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
@@ -43,7 +46,7 @@
         style="@style/N17R"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_16"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/white_70"
@@ -57,7 +60,7 @@
         style="@style/PrimaryButton"
         android:layout_width="wrap_content"
         android:layout_marginEnd="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_48"
         android:paddingStart="@dimen/dimen_20"
         android:paddingEnd="@dimen/dimen_20"
         android:text="@string/start_survey"

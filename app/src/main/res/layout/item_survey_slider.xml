@@ -12,7 +12,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/nb_background" />
+        app:srcCompat="@drawable/nb_background" />
 
     <TextView
         android:id="@+id/tvDescription"
@@ -26,7 +26,7 @@
         android:maxLines="2"
         android:textColor="@color/white_70"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnNext"
+        app:layout_constraintEnd_toStartOf="@id/btnTakeSurvey"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@tools:sample/lorem/random" />
 
@@ -44,17 +44,16 @@
         tools:text="@tools:sample/lorem/random" />
 
     <TextView
-        android:id="@+id/btnNext"
+        android:id="@+id/btnTakeSurvey"
         style="@style/PrimaryButton"
         android:layout_width="wrap_content"
         android:layout_marginEnd="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_marginBottom="@dimen/dimen_48"
         android:paddingStart="@dimen/dimen_20"
         android:paddingEnd="@dimen/dimen_20"
         android:text="@string/take_survey"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/tvDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvDescription" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
