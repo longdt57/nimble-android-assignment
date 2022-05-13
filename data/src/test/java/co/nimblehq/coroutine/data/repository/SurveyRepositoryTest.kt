@@ -1,9 +1,11 @@
 package co.nimblehq.coroutine.data.repository
 
 import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
+import co.nimble.lee.assignment.data.response.SurveyMetaResponse
 import co.nimble.lee.assignment.data.response.SurveyResponse
 import co.nimble.lee.assignment.data.response.base.MetaObjectList
 import co.nimble.lee.assignment.data.response.toSurvey
+import co.nimble.lee.assignment.data.response.toSurveyMeta
 import co.nimble.lee.assignment.data.service.ApiService
 import co.nimble.lee.assignment.domain.repository.SurveyRepository
 import io.kotest.assertions.throwables.shouldThrow
@@ -37,6 +39,8 @@ class SurveyRepositoryTest {
         )
     )
 
+    private val surveyMeta = SurveyMetaResponse()
+
     @Before
     fun setup() {
         mockService = mockk()
@@ -45,9 +49,9 @@ class SurveyRepositoryTest {
 
     @Test
     fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
-        coEvery { mockService.getSurveys(1, 1) } returns MetaObjectList(listOf(survey))
+        coEvery { mockService.getSurveys(1, 1) } returns MetaObjectList(listOf(survey), surveyMeta)
 
-        repository.getSurveys(1, 1) shouldBe listOf(survey.toSurvey())
+        repository.getSurveys(1, 1) shouldBe Pair(listOf(survey.toSurvey()), surveyMeta.toSurveyMeta())
     }
 
     @Test

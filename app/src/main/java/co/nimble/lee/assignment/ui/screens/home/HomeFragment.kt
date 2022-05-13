@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.tvDateTime.text = getDateTimeEEMMdd(System.currentTimeMillis())
 
         surveyViewPager.adapter = surveyAdapter
-        TabLayoutMediator(binding.tabLayout, surveyViewPager) { tab, position -> }
+        TabLayoutMediator(binding.tabLayout, surveyViewPager) { _, _ -> }.attach()
     }
 
     override fun bindViewEvents() {
@@ -106,6 +106,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
                     binding.swipeRefreshLayout.isEnabled = state == ViewPager2.SCROLL_STATE_IDLE
+                }
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (surveyAdapter.needLoadMoreItem(position)) {
+                        viewModel.loadMoreSurveys(surveyAdapter.itemCount)
+                    }
                 }
             }
         )

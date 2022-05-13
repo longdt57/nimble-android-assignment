@@ -1,9 +1,9 @@
 package co.nimblehq.coroutine.domain.usecase
 
 import co.nimble.lee.assignment.domain.model.Survey
+import co.nimble.lee.assignment.domain.model.SurveyMeta
 import co.nimble.lee.assignment.domain.repository.SurveyRepository
 import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
-import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -33,6 +33,8 @@ class GetSurveyUseCaseTest {
         surveyType = "Restaurant"
     )
 
+    private val surveyMeta = SurveyMeta(1, 1, 1, 1)
+
     @Before
     fun setup() {
         mockRepository = mockk()
@@ -41,7 +43,7 @@ class GetSurveyUseCaseTest {
 
     @Test
     fun `When calling request successfully, it returns success response`() = runBlockingTest {
-        val expected = listOf(survey)
+        val expected = Pair(listOf(survey), surveyMeta)
         coEvery { mockRepository.getSurveys(1, 1) } returns expected
 
         usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {

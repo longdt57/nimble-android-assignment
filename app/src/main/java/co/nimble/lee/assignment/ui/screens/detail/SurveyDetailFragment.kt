@@ -3,6 +3,7 @@ package co.nimble.lee.assignment.ui.screens.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
 import co.nimble.lee.assignment.model.SurveyUIModel
@@ -35,7 +36,7 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
     override fun bindViewEvents() {
         super.bindViewEvents()
         binding.ivBack.setOnSingleClickListener {
-            requireActivity().onBackPressed()
+            findNavController().popBackStack()
         }
         binding.btnSurvey.setOnSingleClickListener {
             toaster.display("Not Implemented Yet")

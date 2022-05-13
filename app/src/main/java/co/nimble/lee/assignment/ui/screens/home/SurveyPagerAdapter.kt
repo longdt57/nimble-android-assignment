@@ -24,6 +24,8 @@ class SurveyPagerAdapter(
         holder.bindSurveyData(getItem(position), position, callback)
     }
 
+    fun needLoadMoreItem(position: Int) = itemCount - 1 == position
+
     class SurveyViewHolder(private val binding: ItemSurveySliderBinding) : RecyclerView.ViewHolder(binding.root) {
         open fun bindSurveyData(item: SurveyUIModel, position: Int, callback: (SurveyUIModel, Int) -> Unit) {
             binding.tvTitle.text = item.title
