@@ -1,11 +1,11 @@
 package co.nimblehq.coroutine.ui.screens.auth
 
 import co.nimble.lee.assignment.databinding.NbFragmentSignInBinding
-import co.nimblehq.coroutine.test.getPrivateProperty
-import co.nimblehq.coroutine.test.replace
 import co.nimble.lee.assignment.ui.BaseFragmentTest
 import co.nimble.lee.assignment.ui.screens.auth.SignInFragment
 import co.nimble.lee.assignment.ui.screens.auth.SignInViewModel
+import co.nimblehq.coroutine.test.getPrivateProperty
+import co.nimblehq.coroutine.test.replace
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.kotest.matchers.shouldBe
