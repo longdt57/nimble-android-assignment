@@ -5,6 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_left_white" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCover"
         android:layout_width="match_parent"
@@ -20,14 +28,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_20"
-        android:layout_marginTop="@dimen/dimen_48"
+        android:layout_marginTop="@dimen/dimen_20"
         android:layout_marginEnd="@dimen/dimen_20"
         android:layout_marginBottom="@dimen/dimen_16"
         android:ellipsize="end"
         android:maxLines="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView

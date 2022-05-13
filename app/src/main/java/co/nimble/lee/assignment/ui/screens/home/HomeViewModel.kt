@@ -63,16 +63,17 @@ class HomeViewModel @Inject constructor(
         showLoading()
         execute {
             when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param())) {
-                is UseCaseResult.Success -> _surveyUiModels.value = result.data.toSurveyUiModel()
+                is UseCaseResult.Success -> {
+                    _surveyUiModels.value = result.data.toSurveyUiModel()
+                    getUser()
+                }
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
             hideLoading()
-
-            getUserUseCase()
         }
     }
 
-    private fun getUserUseCase() {
+    private fun getUser() {
         execute {
             when (val result = getUserUseCase.execute()) {
                 is UseCaseResult.Success -> _userUiModel.emit(result.data.toUserUiModel())

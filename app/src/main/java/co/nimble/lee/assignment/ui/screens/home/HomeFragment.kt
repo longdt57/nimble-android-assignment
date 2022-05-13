@@ -18,6 +18,7 @@ import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import co.nimblehq.common.extensions.visibleOrGone
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -70,6 +71,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun displayUser(userUiModel: UserUiModel) {
         Glide.with(requireContext())
             .load(userUiModel.avatarUrl)
+            .apply(RequestOptions.circleCropTransform())
             .placeholder(R.drawable.nb_profile_place_holder)
             .into(binding.ivProfile)
     }

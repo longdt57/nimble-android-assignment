@@ -6,7 +6,6 @@ import co.nimble.lee.assignment.data.request.SignInRequest
 import co.nimble.lee.assignment.data.response.EmptyResponse
 import co.nimble.lee.assignment.data.response.ObjectItem
 import co.nimble.lee.assignment.data.response.SignInResponse
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -16,7 +15,7 @@ interface OAuthApiService {
     suspend fun signInWithEmail(@Body request: SignInRequest): ObjectItem<SignInResponse>
 
     @POST("oauth/token")
-    fun refreshToken(@Body request: RefreshTokenRequest): Response<ObjectItem<SignInResponse>>
+    suspend fun refreshToken(@Body request: RefreshTokenRequest): ObjectItem<SignInResponse>
 
     @POST("oauth/revoke")
     suspend fun logout(@Body request: LogoutRequest): ObjectItem<EmptyResponse>

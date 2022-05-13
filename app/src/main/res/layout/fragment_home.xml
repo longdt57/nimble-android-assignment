@@ -54,7 +54,6 @@
         android:layout_height="@dimen/icon_size_36"
         android:layout_marginTop="@dimen/dimen_56"
         android:layout_marginEnd="@dimen/dimen_20"
-        android:background="@drawable/bg_oval"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/nb_profile_place_holder" />
