@@ -3,15 +3,12 @@ package co.nimble.lee.assignment.model
 import co.nimble.lee.assignment.domain.model.User
 
 data class UserUiModel(
-    val id: Int,
-    val name: String,
-    val username: String,
-    val phone: String
+    val id: String? = null,
+    val type: String? = null,
+    val avatarUrl: String? = null,
+    val email: String? = null,
+    val name: String? = null
 )
 
-private fun User.toUserUiModel(): UserUiModel =
-    UserUiModel(id = id ?: 0, name = name, username = username, phone = phone)
-
-fun List<User>.toUserUiModels(): List<UserUiModel> {
-    return this.map { it.toUserUiModel() }
-}
+fun User.toUserUiModel(): UserUiModel =
+    UserUiModel(id = id, name = name, avatarUrl = avatarUrl, email = email, type = type)

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:background="@drawable/nb_background">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -16,43 +17,47 @@
         android:id="@+id/tabLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_24"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginBottom="@dimen/dimen_150"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="@drawable/tab_selector" />
+        app:tabBackground="@drawable/tab_selector"
+        app:tabIndicatorHeight="0dp"
+        app:tabPaddingEnd="0dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btNext"
+    <TextView
+        android:id="@+id/tvDateTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Next"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:layout_marginTop="@dimen/dimen_48"
+        android:lines="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        tools:text="Monday, JUNE 15" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btCompose"
+    <TextView
+        android:id="@+id/tvHomeTitle"
+        style="@style/N34B"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Jetpack Compose"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dimen_20"
+        android:lines="1"
+        android:text="@string/today"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btNext"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@id/tvDateTime" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Log Out"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="@dimen/icon_size_36"
+        android:layout_height="@dimen/icon_size_36"
+        android:layout_marginTop="@dimen/dimen_56"
+        android:layout_marginEnd="@dimen/dimen_20"
+        android:background="@drawable/bg_oval"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btCompose"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/nb_profile_place_holder" />
 
     <include layout="@layout/view_loading" />
 

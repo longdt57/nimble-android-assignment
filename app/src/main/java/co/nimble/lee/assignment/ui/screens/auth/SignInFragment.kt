@@ -3,6 +3,7 @@ package co.nimble.lee.assignment.ui.screens.auth
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import androidx.core.widget.doAfterTextChanged
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.NbFragmentSignInBinding
@@ -10,6 +11,7 @@ import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
 import co.nimble.lee.assignment.ui.base.BaseFragment
+import co.nimble.lee.assignment.ui.screens.ext.hideKeyboard
 import co.nimble.lee.assignment.ui.screens.ext.navigateToMain
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import co.nimblehq.common.extensions.visibleOrGone
@@ -37,15 +39,13 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
     override fun bindViewEvents() {
         super.bindViewEvents()
         binding.btnLogin.setOnSingleClickListener {
-            viewModel.signInWithEmail(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
+            signIn()
         }
 
         binding.edtEmail.doAfterTextChanged {
             updateBtnLogin()
         }
-        binding.edtPassword.doAfterTextChanged {
-            updateBtnLogin()
-        }
+        setupEdtPassword()
     }
 
     override fun bindViewModel() {
@@ -68,6 +68,27 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
     private fun updateBtnLogin() {
         binding.btnLogin.isEnabled =
             binding.edtEmail.text.isNullOrBlank().not() && binding.edtPassword.text.isNullOrBlank().not()
+    }
+
+    private fun setupEdtPassword() {
+        binding.edtPassword.apply {
+            doAfterTextChanged {
+                updateBtnLogin()
+            }
+
+            setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == IME_ACTION_DONE) {
+                    hideKeyboard(requireContext())
+                    signIn()
+                    return@setOnEditorActionListener true
+                }
+                return@setOnEditorActionListener false
+            }
+        }
+    }
+
+    private fun signIn() {
+        viewModel.signInWithEmail(binding.edtEmail.text.toString(), binding.edtPassword.text.toString())
     }
 
     private fun startViewAnim() {

@@ -2,61 +2,34 @@ package co.nimble.lee.assignment.data.response
 
 import co.nimble.lee.assignment.domain.model.User
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class UserResponse(
-    @Json(name = "id") val id: Int?,
-    @Json(name = "name") val name: String?,
-    @Json(name = "username") val username: String?,
-    @Json(name = "email") val email: String?,
-    @Json(name = "address") val addressResponse: AddressResponse?,
-    @Json(name = "phone") val phone: String?,
-    @Json(name = "website") val website: String?
+    @Json(name = "attributes")
+    val attributes: Attributes? = null,
+    @Json(name = "id")
+    val id: String? = null,
+    @Json(name = "type")
+    val type: String? = null
 ) {
-
-    data class AddressResponse(
-        @Json(name = "street") val street: String?,
-        @Json(name = "suite") val suite: String?,
-        @Json(name = "city") val city: String?,
-        @Json(name = "zipcode") val zipCode: String?,
-        @Json(name = "geo") val geoResponse: GeoResponse?
-    ) {
-
-        data class GeoResponse(
-            @Json(name = "lat") val latitude: String?,
-            @Json(name = "lng") val longitude: String?
-        )
-    }
+    @JsonClass(generateAdapter = true)
+    data class Attributes(
+        @Json(name = "avatar_url")
+        val avatarUrl: String? = null,
+        @Json(name = "email")
+        val email: String? = null,
+        @Json(name = "name")
+        val name: String? = null
+    )
 }
 
-fun List<UserResponse>.toUsers(): List<User> {
-    return this.map { it.toUser() }
-}
-
-private fun UserResponse.toUser(): User {
+fun UserResponse.toUser(): User {
     return User(
-        id = this.id,
-        name = this.name.orEmpty(),
-        username = this.username.orEmpty(),
-        email = this.email.orEmpty(),
-        address = this.addressResponse?.toAddress(),
-        phone = this.phone.orEmpty(),
-        website = this.website.orEmpty()
-    )
-}
-
-private fun UserResponse.AddressResponse.toAddress(): User.Address {
-    return User.Address(
-        street = this.street.orEmpty(),
-        suite = this.suite.orEmpty(),
-        city = this.city.orEmpty(),
-        zipCode = this.zipCode.orEmpty(),
-        geo = this.geoResponse?.toGeo()
-    )
-}
-
-private fun UserResponse.AddressResponse.GeoResponse.toGeo(): User.Address.Geo {
-    return User.Address.Geo(
-        latitude = this.latitude.orEmpty(),
-        longitude = this.longitude.orEmpty()
+        id = id,
+        type = type,
+        name = attributes?.name,
+        avatarUrl = attributes?.avatarUrl,
+        email = attributes?.email
     )
 }

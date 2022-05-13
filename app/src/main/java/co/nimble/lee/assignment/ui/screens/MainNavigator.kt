@@ -35,12 +35,6 @@ class MainNavigatorImpl @Inject constructor(
     }
 
     private fun navigateToCompose() {
-        val navController = findNavController()
-        when (navController?.currentDestination?.id) {
-            R.id.homeFragment -> navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToComposeFragment()
-            )
-            else -> unsupportedNavigation()
-        }
+        unsupportedNavigation()
     }
 }

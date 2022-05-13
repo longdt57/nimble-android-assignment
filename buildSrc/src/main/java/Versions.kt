@@ -21,6 +21,8 @@ object Versions {
     const val COMPOSE_VERSION = "1.0.2"
     const val CONSTRAINT_LAYOUT_VERSION = "2.0.0-alpha3"
 
+    const val GLIDE_VERSION = "4.13.0"
+
     const val HILT_VERSION = "2.38.1"
 
     const val JAVAX_INJECT_VERSION = "1"
@@ -34,6 +36,9 @@ object Versions {
 
     const val OKHTTP_VERSION = "4.9.1"
     const val RETROFIT_VERSION = "2.9.0"
+
+    const val SKELETON_VERSION = "1.1.2"
+    const val SHIMMER_LAYOUT_VERSION = "2.1.0"
 
     const val TIMBER_LOG_VERSION = "4.7.1"
 
