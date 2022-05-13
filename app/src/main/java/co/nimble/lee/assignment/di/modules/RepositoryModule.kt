@@ -19,7 +19,7 @@ import dagger.hilt.android.components.ViewModelComponent
 class RepositoryModule {
 
     @Provides
-    fun provideUserRepository(
+    fun provideOAuthRepository(
         apiService: OAuthApiService,
         tokenStorage: TokenStorage
     ): OAuthRepository = OAuthRepositoryImpl(apiService, tokenStorage)
