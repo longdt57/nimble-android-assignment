@@ -38,11 +38,11 @@ fun UserItem(
             ) {
                 with(userUiModel) {
                     Text(
-                        text = name,
+                        text = name.orEmpty(),
                         style = MaterialTheme.typography.subtitle1
                     )
                     Text(
-                        text = phone,
+                        text = email.orEmpty(),
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier.padding(top = Dimension.Dp4)
                     )

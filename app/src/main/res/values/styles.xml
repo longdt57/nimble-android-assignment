@@ -11,13 +11,14 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowBackground">@drawable/nb_background</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="FullScreenTheme" parent="AppTheme" />
 
-    <style name="FullScreenTheme.NoAnimation" parent="FullScreenTheme">
+    <style name="FullScreenTheme.Authentication" parent="FullScreenTheme">
         <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@drawable/nb_background</item>
     </style>
 
     <style name="NB_EditText" parent="@style/N17R">

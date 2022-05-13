@@ -8,7 +8,7 @@ class GetSurveyUseCase @Inject constructor(private val surveyRepository: SurveyR
     BaseUseCase<GetSurveyUseCase.Param, List<Survey>>() {
 
     override suspend fun execute(param: Param): List<Survey> {
-        return surveyRepository.getSurvey(pageNumber = param.pageNumber, pageSize = param.pageSize)
+        return surveyRepository.getSurveys(pageNumber = param.pageNumber, pageSize = param.pageSize)
     }
 
     data class Param(

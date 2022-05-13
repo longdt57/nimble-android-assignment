@@ -2,7 +2,9 @@ package co.nimble.lee.assignment.data.response
 
 import co.nimble.lee.assignment.domain.model.TokenInfo
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class SignInResponse(
     @Json(name = "attributes")
     val attributes: Attributes? = null,

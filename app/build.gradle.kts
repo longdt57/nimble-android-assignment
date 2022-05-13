@@ -151,6 +151,11 @@ dependencies {
 
     kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
+//    implementation("com.ethanhua:skeleton:1.1.2")
+//    implementation("io.supercharge:shimmerlayout:2.1.0")
+
+    api("com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}")
+
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing

@@ -1,8 +1,11 @@
 package co.nimble.lee.assignment.ui.screens.ext
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import co.nimble.lee.assignment.ui.screens.MainActivity
 import co.nimble.lee.assignment.ui.screens.auth.AuthenticationActivity
 
@@ -18,10 +21,7 @@ fun Context.navigateToAuthentication(bundle: Bundle? = null) {
     startActivity(intent)
 }
 
-fun Context.getScreenWidth(): Int {
-    return resources.displayMetrics.widthPixels
-}
-
-fun Context.getScreenHeight(): Int {
-    return resources.displayMetrics.heightPixels
+fun View.hideKeyboard(context: Context) {
+    val imm: InputMethodManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }

@@ -1,26 +1,9 @@
 package co.nimble.lee.assignment.domain.model
 
 data class User(
-    val id: Int?,
-    val name: String,
-    val username: String,
-    val email: String,
-    val address: Address?,
-    val phone: String,
-    val website: String
-) {
-
-    data class Address(
-        val street: String,
-        val suite: String,
-        val city: String,
-        val zipCode: String,
-        val geo: Geo?
-    ) {
-
-        data class Geo(
-            val latitude: String,
-            val longitude: String
-        )
-    }
-}
+    val id: String? = null,
+    val type: String? = null,
+    val avatarUrl: String? = null,
+    val email: String? = null,
+    val name: String? = null
+) 

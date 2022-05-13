@@ -1,8 +1,8 @@
 package co.nimble.lee.assignment.ui.base
 
-import co.nimble.lee.assignment.ui.screens.second.SecondBundle
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 
 sealed class NavigationEvent {
-    data class Second(val bundle: SecondBundle) : NavigationEvent()
+    data class SurveyDetail(val bundle: SurveyDetailBundle) : NavigationEvent()
     object Compose : NavigationEvent()
 }

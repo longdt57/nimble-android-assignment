@@ -16,6 +16,7 @@
 
         <activity
             android:name=".ui.screens.splash.SplashActivity"
+            android:theme="@style/FullScreenTheme.Authentication"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +32,7 @@
         <activity
             android:name=".ui.screens.auth.AuthenticationActivity"
             android:launchMode="singleTask"
-            android:theme="@style/FullScreenTheme.NoAnimation"
+            android:theme="@style/FullScreenTheme.Authentication"
             android:windowSoftInputMode="adjustNothing" />
     </application>
 
