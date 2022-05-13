@@ -5,7 +5,7 @@ import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
 import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.ui.base.NavigationEvent
-import co.nimble.lee.assignment.ui.screens.second.SecondBundle
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import co.nimble.lee.assignment.model.SurveyUIModel
@@ -26,7 +26,7 @@ interface Output {
     val surveyUiModels: StateFlow<List<SurveyUIModel>>
     val userUiModel: SharedFlow<UserUiModel>
 
-    fun navigateToSecond(bundle: SecondBundle)
+    fun navigateToSurveyDetail(bundle: SurveyDetailBundle)
 
     fun navigateToCompose()
 }
@@ -55,9 +55,9 @@ class HomeViewModel @Inject constructor(
         getSurveys()
     }
 
-    override fun navigateToSecond(bundle: SecondBundle) {
+    override fun navigateToSurveyDetail(bundle: SurveyDetailBundle) {
         viewModelScope.launch {
-            _navigator.emit(NavigationEvent.Second(bundle))
+            _navigator.emit(NavigationEvent.SurveyDetail(bundle))
         }
     }
 

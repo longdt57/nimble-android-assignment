@@ -9,6 +9,7 @@ import androidx.viewpager.widget.PagerAdapter
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.ui.screens.ext.getUrlHighResolution
+import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import com.bumptech.glide.Glide
 
@@ -59,10 +60,7 @@ class SurveyPagerAdapter(
                 callback.invoke(item, position)
             }
 
-            Glide.with(itemView.context)
-                .load(item.coverImageUrl.getUrlHighResolution())
-                .placeholder(R.drawable.nb_background)
-                .into(ivCover)
+            ivCover.loadSurveyCoverImage(item.coverImageUrl.orEmpty())
         }
     }
 }
