@@ -5,6 +5,7 @@ import co.nimble.lee.assignment.test.TestNavigatorModule.mockMainNavigator
 import co.nimblehq.coroutine.test.getPrivateProperty
 import co.nimblehq.coroutine.test.replace
 import co.nimble.lee.assignment.ui.BaseFragmentTest
+import co.nimble.lee.assignment.ui.screens.ext.getDateTimeEEMMdd
 import co.nimble.lee.assignment.ui.screens.home.HomeFragment
 import co.nimble.lee.assignment.ui.screens.home.HomeViewModel
 import dagger.hilt.android.testing.*
@@ -29,8 +30,8 @@ class HomeFragmentTest : BaseFragmentTest<HomeFragment, FragmentHomeBinding>() {
     @Test
     fun `When initializing HomeFragment, its views display the text correctly`() {
         launchFragment()
-        fragment.binding.btNext.text.toString() shouldBe "Next"
-        fragment.binding.btCompose.text.toString() shouldBe "Jetpack Compose"
+        fragment.binding.tvHomeTitle.text.toString() shouldBe "Today"
+        fragment.binding.tvDateTime.text.toString() shouldBe getDateTimeEEMMdd(System.currentTimeMillis())
     }
 
     private fun launchFragment() {

@@ -15,7 +15,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
-import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)

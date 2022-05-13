@@ -27,8 +27,6 @@ interface Output {
     val userUiModel: SharedFlow<UserUiModel>
 
     fun navigateToSurveyDetail(bundle: SurveyDetailBundle)
-
-    fun navigateToCompose()
 }
 
 @HiltViewModel
@@ -58,12 +56,6 @@ class HomeViewModel @Inject constructor(
     override fun navigateToSurveyDetail(bundle: SurveyDetailBundle) {
         viewModelScope.launch {
             _navigator.emit(NavigationEvent.SurveyDetail(bundle))
-        }
-    }
-
-    override fun navigateToCompose() {
-        viewModelScope.launch {
-            _navigator.emit(NavigationEvent.Compose)
         }
     }
 

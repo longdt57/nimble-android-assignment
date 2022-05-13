@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.ActivitySplashBinding
 import co.nimble.lee.assignment.ui.base.BaseActivity
@@ -29,7 +28,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
     }
 
     private fun startLogoAnimation() {
-        val anim = AnimationUtils.loadAnimation(this, R.anim.nb_anim_alpha).apply {
+        val anim = AnimationUtils.loadAnimation(this, R.anim.anim_alpha).apply {
             setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) = Unit
                 override fun onAnimationRepeat(animation: Animation?) = Unit
@@ -37,7 +36,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 override fun onAnimationEnd(animation: Animation?) {
                     navigateToAuthenticationOrHome(viewModel.isLoggedIn())
                 }
-
             })
         }
         binding.ivLog.startAnimation(anim)

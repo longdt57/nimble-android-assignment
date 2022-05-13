@@ -8,10 +8,8 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.model.SurveyUIModel
-import co.nimble.lee.assignment.ui.screens.ext.getUrlHighResolution
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
-import com.bumptech.glide.Glide
 
 class SurveyPagerAdapter(
     private val items: List<SurveyUIModel>,
@@ -28,7 +26,7 @@ class SurveyPagerAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val layoutInflater = LayoutInflater.from(container.context)
-        val itemView = layoutInflater.inflate(R.layout.nb_item_survey_slider, container, false)
+        val itemView = layoutInflater.inflate(R.layout.item_survey_slider, container, false)
         container.addView(itemView)
 
         val viewHolder = SurveyViewHolder(itemView)

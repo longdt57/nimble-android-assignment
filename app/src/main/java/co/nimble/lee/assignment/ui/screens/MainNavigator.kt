@@ -20,7 +20,6 @@ class MainNavigatorImpl @Inject constructor(
     override fun navigate(event: NavigationEvent) {
         when (event) {
             is NavigationEvent.SurveyDetail -> navigateToSecond(event.bundle)
-            is NavigationEvent.Compose -> navigateToCompose()
         }
     }
 
@@ -32,9 +31,5 @@ class MainNavigatorImpl @Inject constructor(
             )
             else -> unsupportedNavigation()
         }
-    }
-
-    private fun navigateToCompose() {
-        unsupportedNavigation()
     }
 }

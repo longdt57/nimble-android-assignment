@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import androidx.core.widget.doAfterTextChanged
 import co.nimble.lee.assignment.R
-import co.nimble.lee.assignment.databinding.NbFragmentSignInBinding
+import co.nimble.lee.assignment.databinding.FragmentSignInBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
@@ -18,15 +18,15 @@ import co.nimblehq.common.extensions.visibleOrGone
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
+class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     private val viewModel: SignInViewModel by provideViewModels()
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> NbFragmentSignInBinding
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSignInBinding
         get() = { inflater, container, attachToParent ->
-            NbFragmentSignInBinding.inflate(inflater, container, attachToParent)
+            FragmentSignInBinding.inflate(inflater, container, attachToParent)
         }
 
     override fun setupView() {
@@ -92,7 +92,7 @@ class SignInFragment : BaseFragment<NbFragmentSignInBinding>() {
     }
 
     private fun startViewAnim() {
-        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.nb_anim_alpha)
+        val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.anim_alpha)
         binding.edtEmail.startAnimation(anim)
         binding.passwordContainer.startAnimation(anim)
         binding.btnLogin.startAnimation(anim)
