@@ -16,4 +16,5 @@
     <dimen name="button_height_56">56dp</dimen>
     <dimen name="field_height_56">56dp</dimen>
     <dimen name="icon_size_36">36dp</dimen>
+    <dimen name="dimen_36">36dp</dimen>
 </resources>

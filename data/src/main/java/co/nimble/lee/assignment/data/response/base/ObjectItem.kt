@@ -1,4 +1,4 @@
-package co.nimble.lee.assignment.data.response
+package co.nimble.lee.assignment.data.response.base
 
 import com.squareup.moshi.Json
 

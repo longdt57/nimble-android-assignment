@@ -3,11 +3,13 @@ package co.nimble.lee.assignment.ui.screens.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
+import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +31,16 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
         binding.tvTitle.text = surveyUiModel.title
         binding.tvDescription.text = surveyUiModel.description
         binding.ivCover.loadSurveyCoverImage(surveyUiModel.coverImageUrl.orEmpty())
+    }
+
+    override fun bindViewEvents() {
+        super.bindViewEvents()
+        binding.ivBack.setOnSingleClickListener {
+            findNavController().popBackStack()
+        }
+        binding.btnSurvey.setOnSingleClickListener {
+            toaster.display("Not Implemented Yet")
+        }
     }
 
     override fun bindViewModel() {}

@@ -156,6 +156,8 @@ dependencies {
 
     api("com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}")
 
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing

@@ -1,7 +1,7 @@
 package co.nimblehq.coroutine.data.repository
 
 import co.nimble.lee.assignment.data.repository.UserRepositoryImpl
-import co.nimble.lee.assignment.data.response.ObjectItem
+import co.nimble.lee.assignment.data.response.base.ObjectItem
 import co.nimble.lee.assignment.data.response.UserResponse
 import co.nimble.lee.assignment.data.response.toUser
 import co.nimble.lee.assignment.data.service.ApiService

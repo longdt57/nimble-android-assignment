@@ -1,6 +1,7 @@
 package co.nimble.lee.assignment.ui.screens.home
 
 import androidx.lifecycle.viewModelScope
+import co.nimble.lee.assignment.domain.model.SurveyMeta
 import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
 import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
 import co.nimble.lee.assignment.ui.base.BaseViewModel
@@ -49,6 +50,8 @@ class HomeViewModel @Inject constructor(
     val logoutEvent: SharedFlow<Unit>
         get() = _logoutEvent
 
+    private var surveyMeta: SurveyMeta? = null
+
     init {
         getSurveys()
     }
@@ -59,20 +62,38 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getSurveys() {
+    fun getSurveys() {
         showLoading()
         execute {
             when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param())) {
-                is UseCaseResult.Success -> _surveyUiModels.value = result.data.toSurveyUiModel()
+                is UseCaseResult.Success -> {
+                    _surveyUiModels.value = result.data.first.toSurveyUiModel()
+                    surveyMeta = result.data.second
+                    getUser()
+                }
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
             hideLoading()
-
-            getUserUseCase()
         }
     }
 
-    private fun getUserUseCase() {
+    fun loadMoreSurveys(loadedSize: Int) {
+        val pageInfo = surveyMeta?.getPageNumberAndSize(loadedSize) ?: return
+        execute {
+            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(pageInfo.first, pageInfo.second))) {
+                is UseCaseResult.Success -> {
+                    _surveyUiModels.apply {
+                        value = value.toMutableList().apply { addAll(result.data.first.toSurveyUiModel()) }
+                    }
+                    surveyMeta = result.data.second
+                    getUser()
+                }
+                is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
+            }
+        }
+    }
+
+    private fun getUser() {
         execute {
             when (val result = getUserUseCase.execute()) {
                 is UseCaseResult.Success -> _userUiModel.emit(result.data.toUserUiModel())

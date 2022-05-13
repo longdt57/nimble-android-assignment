@@ -1,6 +1,7 @@
 package co.nimble.lee.assignment.data.service.token_helper
 
 import co.nimble.lee.assignment.data.storage.local.TokenStorage
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -79,12 +80,16 @@ class TokenInterceptor @Inject constructor(
 
             return if (AuthTokenUtils.isValidRefreshToken(localRefreshToken)) {
                 try {
-                    refreshTokenRepository.refreshAndSaveToken()
-                    updateRequestWithNewAccessToken(request, localAccessToken)
+                    runBlocking {
+                        refreshTokenRepository.refreshAndSaveToken()
+                        updateRequestWithNewAccessToken(request, localAccessToken)
+                    }
                 } catch (e: Exception) {
+                    // Todo should logout to prevent recall api
                     request
                 }
             } else {
+                // Todo should logout to prevent recall api
                 request
             }
         }

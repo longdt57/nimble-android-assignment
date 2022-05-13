@@ -2,7 +2,7 @@ package co.nimble.lee.assignment.ui.screens.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
 import co.nimble.lee.assignment.databinding.ViewLoadingBinding
@@ -18,6 +18,8 @@ import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import co.nimblehq.common.extensions.visibleOrGone
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,15 +33,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 
-    private val surveyViewPager: ViewPager
+    private val surveyViewPager: ViewPager2
         get() = binding.viewPager
 
-    private lateinit var surveyAdapter: SurveyPagerAdapter
-
-    private val surveyCallback: ((SurveyUIModel, Int) -> Unit)
-        get() = { survey, _ ->
+    private val surveyAdapter: SurveyPagerAdapter by lazy {
+        SurveyPagerAdapter { survey, _ ->
             openSurveyDetailScreen(survey)
         }
+    }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = { inflater, container, attachToParent ->
@@ -49,6 +50,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun setupView() {
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
         binding.tvDateTime.text = getDateTimeEEMMdd(System.currentTimeMillis())
+
+        surveyViewPager.adapter = surveyAdapter
+        TabLayoutMediator(binding.tabLayout, surveyViewPager) { _, _ -> }.attach()
     }
 
     override fun bindViewEvents() {
@@ -56,6 +60,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.ivProfile.setOnSingleClickListener {
             viewModel.logout()
         }
+        bindSwipeRefreshEvent()
+        bindViewPageEvent()
     }
 
     override fun bindViewModel() {
@@ -70,14 +76,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun displayUser(userUiModel: UserUiModel) {
         Glide.with(requireContext())
             .load(userUiModel.avatarUrl)
+            .apply(RequestOptions.circleCropTransform())
             .placeholder(R.drawable.nb_profile_place_holder)
             .into(binding.ivProfile)
     }
 
     private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
-        surveyAdapter = SurveyPagerAdapter(userUiModels, surveyCallback)
-        surveyViewPager.adapter = surveyAdapter
-        binding.tabLayout.setupWithViewPager(surveyViewPager, true)
+        surveyAdapter.submitList(userUiModels)
     }
 
     private fun bindLoading(isLoading: IsLoading) {
@@ -93,5 +98,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun openSurveyDetailScreen(survey: SurveyUIModel) {
         viewModel.navigateToSurveyDetail(SurveyDetailBundle(survey))
+    }
+
+    private fun bindViewPageEvent() {
+        surveyViewPager.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                    binding.swipeRefreshLayout.isEnabled = state == ViewPager2.SCROLL_STATE_IDLE
+                }
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (surveyAdapter.needLoadMoreItem(position)) {
+                        viewModel.loadMoreSurveys(surveyAdapter.itemCount)
+                    }
+                }
+            }
+        )
+    }
+
+    private fun bindSwipeRefreshEvent() {
+        binding.swipeRefreshLayout.apply {
+            setOnRefreshListener {
+                viewModel.getSurveys()
+                isRefreshing = false
+            }
+        }
     }
 }

@@ -1,13 +1,14 @@
 package co.nimble.lee.assignment.domain.usecase
 
 import co.nimble.lee.assignment.domain.model.Survey
+import co.nimble.lee.assignment.domain.model.SurveyMeta
 import co.nimble.lee.assignment.domain.repository.SurveyRepository
 import javax.inject.Inject
 
 class GetSurveyUseCase @Inject constructor(private val surveyRepository: SurveyRepository) :
-    BaseUseCase<GetSurveyUseCase.Param, List<Survey>>() {
+    BaseUseCase<GetSurveyUseCase.Param, Pair<List<Survey>, SurveyMeta>>() {
 
-    override suspend fun execute(param: Param): List<Survey> {
+    override suspend fun execute(param: Param): Pair<List<Survey>, SurveyMeta> {
         return surveyRepository.getSurveys(pageNumber = param.pageNumber, pageSize = param.pageSize)
     }
 

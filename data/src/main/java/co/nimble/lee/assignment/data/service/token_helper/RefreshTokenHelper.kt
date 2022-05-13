@@ -16,16 +16,15 @@ class RefreshTokenHelper @Inject constructor(
 ) : ITokenStorage by storage {
 
     @Throws(NullPointerException::class)
-    fun refreshAndSaveToken() {
+    suspend fun refreshAndSaveToken() {
         refreshToken().apply {
             storage.saveTokenInfo(this)
         }
     }
 
     @Throws(NullPointerException::class)
-    fun refreshToken(): TokenInfo {
-        return service.refreshToken(RefreshTokenRequest(refreshToken = storage.refreshToken))
-            .body()!!.data!!.toTokenInfo()
+    private suspend fun refreshToken(): TokenInfo {
+        return service.refreshToken(RefreshTokenRequest(refreshToken = storage.refreshToken)).data!!.toTokenInfo()
     }
 
 }
