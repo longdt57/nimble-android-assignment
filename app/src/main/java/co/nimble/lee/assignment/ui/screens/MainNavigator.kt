@@ -6,7 +6,7 @@ import co.nimble.lee.assignment.ui.base.BaseNavigator
 import co.nimble.lee.assignment.ui.base.BaseNavigatorImpl
 import co.nimble.lee.assignment.ui.base.NavigationEvent
 import co.nimble.lee.assignment.ui.screens.home.HomeFragmentDirections
-import co.nimble.lee.assignment.ui.screens.second.SecondBundle
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import javax.inject.Inject
 
 interface MainNavigator : BaseNavigator
@@ -19,12 +19,12 @@ class MainNavigatorImpl @Inject constructor(
 
     override fun navigate(event: NavigationEvent) {
         when (event) {
-            is NavigationEvent.Second -> navigateToSecond(event.bundle)
+            is NavigationEvent.SurveyDetail -> navigateToSecond(event.bundle)
             is NavigationEvent.Compose -> navigateToCompose()
         }
     }
 
-    private fun navigateToSecond(bundle: SecondBundle) {
+    private fun navigateToSecond(bundle: SurveyDetailBundle) {
         val navController = findNavController()
         when (navController?.currentDestination?.id) {
             R.id.homeFragment -> navController.navigate(

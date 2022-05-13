@@ -14,6 +14,7 @@ import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.getDateTimeEEMMdd
 import co.nimble.lee.assignment.ui.screens.ext.navigateToAuthentication
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import co.nimblehq.common.extensions.visibleOrGone
 import com.bumptech.glide.Glide
@@ -91,6 +92,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun openSurveyDetailScreen(survey: SurveyUIModel) {
-
+        viewModel.navigateToSurveyDetail(SurveyDetailBundle(survey))
     }
 }

@@ -6,6 +6,7 @@ import co.nimble.lee.assignment.data.service.ApiService
 import co.nimble.lee.assignment.data.service.providers.ApiServiceProvider
 import co.nimble.lee.assignment.data.service.providers.ConverterFactoryProvider
 import co.nimble.lee.assignment.data.service.providers.RetrofitProvider
+import co.nimble.lee.assignment.data.service.servicebuilder.AccessTokenServiceBuilder
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -36,26 +37,12 @@ class RetrofitModule {
         .getRetrofitBuilder(baseUrl, okHttpClient, converterFactory)
         .build()
 
-    @AuthenticatedRetrofit
-    @Provides
-    fun provideVerifiedRetrofit(
-        baseUrl: String,
-        @AuthenticatedOkHttpClient okHttpClient: OkHttpClient,
-        converterFactory: Converter.Factory,
-    ): Retrofit = RetrofitProvider
-        .getRetrofitBuilder(baseUrl, okHttpClient, converterFactory)
-        .build()
-
     @Provides
     fun provideOAuthApiService(retrofit: Retrofit): OAuthApiService =
         ApiServiceProvider.getApiService(retrofit)
 
     @Provides
-    fun provideApiService(@AuthenticatedRetrofit retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun provideApiService(retrofit: AccessTokenServiceBuilder): ApiService {
+        return retrofit.create(ApiService::class.java, BuildConfig.BASE_API_URL)
     }
 }
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class AuthenticatedRetrofit

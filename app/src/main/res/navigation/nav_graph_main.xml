@@ -22,12 +22,12 @@
 
     <fragment
         android:id="@+id/secondFragment"
-        android:name="co.nimble.lee.assignment.ui.screens.second.SecondFragment"
-        tools:layout="@layout/fragment_second">
+        android:name="co.nimble.lee.assignment.ui.screens.detail.SurveyDetailFragment"
+        tools:layout="@layout/fragment_survey_detail">
 
         <argument
             android:name="bundle"
-            app:argType="co.nimble.lee.assignment.ui.screens.second.SecondBundle" />
+            app:argType="co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle" />
     </fragment>
 
 </navigation>
