@@ -8,5 +8,6 @@ fun ImageView.loadSurveyCoverImage(url: String) {
     Glide.with(this)
         .load(url.getUrlHighResolution())
         .placeholder(R.drawable.nb_background)
+        .error(R.drawable.nb_background)
         .into(this)
 }

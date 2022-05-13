@@ -4,7 +4,7 @@ import co.nimble.lee.assignment.data.request.LogoutRequest
 import co.nimble.lee.assignment.data.request.RefreshTokenRequest
 import co.nimble.lee.assignment.data.request.SignInRequest
 import co.nimble.lee.assignment.data.response.EmptyResponse
-import co.nimble.lee.assignment.data.response.ObjectItem
+import co.nimble.lee.assignment.data.response.base.ObjectItem
 import co.nimble.lee.assignment.data.response.SignInResponse
 import retrofit2.http.Body
 import retrofit2.http.POST

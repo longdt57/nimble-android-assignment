@@ -1,8 +1,8 @@
 package co.nimblehq.coroutine.data.repository
 
 import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
-import co.nimble.lee.assignment.data.response.ObjectList
 import co.nimble.lee.assignment.data.response.SurveyResponse
+import co.nimble.lee.assignment.data.response.base.MetaObjectList
 import co.nimble.lee.assignment.data.response.toSurvey
 import co.nimble.lee.assignment.data.service.ApiService
 import co.nimble.lee.assignment.domain.repository.SurveyRepository
@@ -45,7 +45,7 @@ class SurveyRepositoryTest {
 
     @Test
     fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
-        coEvery { mockService.getSurveys(1, 1) } returns ObjectList(listOf(survey))
+        coEvery { mockService.getSurveys(1, 1) } returns MetaObjectList(listOf(survey))
 
         repository.getSurveys(1, 1) shouldBe listOf(survey.toSurvey())
     }

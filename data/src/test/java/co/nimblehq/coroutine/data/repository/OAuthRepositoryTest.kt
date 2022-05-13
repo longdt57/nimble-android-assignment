@@ -2,7 +2,7 @@ package co.nimblehq.coroutine.data.repository
 
 import co.nimble.lee.assignment.data.repository.OAuthRepositoryImpl
 import co.nimble.lee.assignment.data.request.SignInRequest
-import co.nimble.lee.assignment.data.response.ObjectItem
+import co.nimble.lee.assignment.data.response.base.ObjectItem
 import co.nimble.lee.assignment.data.response.SignInResponse
 import co.nimble.lee.assignment.data.response.toTokenInfo
 import co.nimble.lee.assignment.data.service.OAuthApiService
