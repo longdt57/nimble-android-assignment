@@ -3,6 +3,7 @@ package co.nimble.lee.assignment.di.modules
 import android.content.Context
 import androidx.room.Room
 import co.nimble.lee.assignment.data.database.AppDatabase
+import co.nimble.lee.assignment.data.database.SurveyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +20,9 @@ class DatabaseProvider {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    @Provides
+    fun provideSurveyDao(appDatabase: AppDatabase): SurveyDao = appDatabase.surveyDao()
 }
 
 const val DATABASE_NAME = "nb-survey"

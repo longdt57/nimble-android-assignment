@@ -5,15 +5,10 @@ import javax.inject.Inject
 
 class LogOutUseCase @Inject constructor(
     private val repository: LogoutRepository
-) :
-    BaseUseCase<Unit, Unit>() {
+) : BaseUseCase<Unit, Unit>() {
 
     override suspend fun execute(param: Unit) {
-        logout()
+        repository.logout()
     }
 
-    private suspend fun logout() = try {
-        repository.logout()
-    } catch (e: Exception) {
-    }
 }

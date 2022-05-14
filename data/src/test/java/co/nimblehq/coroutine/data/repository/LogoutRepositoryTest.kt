@@ -35,20 +35,21 @@ class LogoutRepositoryTest {
     }
 
     @Test
-    fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
+    fun `When calling logout request successfully, it returns success response`() = runBlockingTest {
         coEvery { mockService.logout(LogoutRequest(token = anyString())) } returns ObjectItem(data = EmptyResponse())
         coEvery { mockDatabase.clearAllTables() } returns Unit
         coEvery { mockTokenStorage.clearTokenInfo() } returns Unit
 
-        repository.logout() shouldBe Unit
+        repository.logout().run {
+            this shouldBe Unit
+        }
     }
 
     @Test
-    fun `When calling getUsers request failed, it returns wrapped error`() = runBlockingTest {
+    fun `When calling logout request failed, it returns Unit`() = runBlockingTest {
         coEvery { mockService.logout(LogoutRequest(anyString())) } throws Throwable()
 
-        shouldThrow<Throwable> {
-            repository.logout()
-        }
+        repository.logout() shouldBe Unit
     }
+
 }

@@ -13,7 +13,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class GetUserUsersCaseTest {
+class GetUserUseCaseTest {
 
     private lateinit var mockRepository: UserRepository
     private lateinit var usecase: GetUserUseCase
