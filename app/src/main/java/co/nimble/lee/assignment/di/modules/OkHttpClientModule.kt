@@ -15,10 +15,11 @@ class OkHttpClientModule {
     @Provides
     fun provideOkHttpClient() = OkHttpClient.Builder().apply {
         if (BuildConfig.DEBUG) {
-            addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
+            addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
         }
     }.build()
-
 }

@@ -10,7 +10,7 @@ data class SurveyUIModel(
     val title: String?,
     val description: String?,
     val coverImageUrl: String?
-): Parcelable
+) : Parcelable
 
 fun Survey.toSurveyUiModel() = SurveyUIModel(
     id = id,

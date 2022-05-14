@@ -10,13 +10,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
-import co.nimblehq.common.extensions.hideSoftKeyboard
 import co.nimble.lee.assignment.ui.common.Toaster
 import co.nimble.lee.assignment.ui.userReadableMessage
+import co.nimblehq.common.extensions.hideSoftKeyboard
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseFragment<VB : ViewBinding> : Fragment(), BaseFragmentCallbacks {
 

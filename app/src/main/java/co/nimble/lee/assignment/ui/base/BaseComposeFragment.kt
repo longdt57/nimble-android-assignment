@@ -12,10 +12,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import co.nimble.lee.assignment.ui.common.Toaster
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseComposeFragment : Fragment(), BaseComposeFragmentCallbacks {
 

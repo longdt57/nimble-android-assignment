@@ -51,10 +51,12 @@ abstract class BaseFragmentTest<F : BaseFragment<VB>, VB : ViewBinding> {
         )
 
         ActivityScenario.launch<EmptyHiltActivity>(startActivityIntent).onActivity { activity ->
-            val fragment = (activity.supportFragmentManager.fragmentFactory.instantiate(
-                Preconditions.checkNotNull(F::class.java.classLoader),
-                F::class.java.name
-            ) as F).apply {
+            val fragment = (
+                activity.supportFragmentManager.fragmentFactory.instantiate(
+                    Preconditions.checkNotNull(F::class.java.classLoader),
+                    F::class.java.name
+                ) as F
+                ).apply {
                 this.onInstantiate()
             }
             fragment.arguments = fragmentArgs

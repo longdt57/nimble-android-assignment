@@ -2,13 +2,13 @@ package co.nimblehq.coroutine.ui.screens.home
 
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
+import co.nimble.lee.assignment.ui.screens.ext.getDateTimeEEMMdd
+import co.nimble.lee.assignment.ui.screens.home.HomeFragment
+import co.nimble.lee.assignment.ui.screens.home.HomeViewModel
 import co.nimblehq.coroutine.test.TestNavigatorModule.mockMainNavigator
 import co.nimblehq.coroutine.test.getPrivateProperty
 import co.nimblehq.coroutine.test.replace
 import co.nimblehq.coroutine.ui.BaseFragmentTest
-import co.nimble.lee.assignment.ui.screens.ext.getDateTimeEEMMdd
-import co.nimble.lee.assignment.ui.screens.home.HomeFragment
-import co.nimble.lee.assignment.ui.screens.home.HomeViewModel
 import dagger.hilt.android.testing.*
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
