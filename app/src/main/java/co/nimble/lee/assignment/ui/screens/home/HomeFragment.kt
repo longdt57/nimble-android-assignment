@@ -78,10 +78,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .load(userUiModel.avatarUrl)
             .apply(RequestOptions.circleCropTransform())
             .placeholder(R.drawable.nb_profile_place_holder)
+            .error(R.drawable.nb_profile_place_holder)
             .into(binding.ivProfile)
     }
 
     private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
+        binding.tvState.isVisible = userUiModels.isNullOrEmpty()
         surveyAdapter.submitList(userUiModels)
     }
 

@@ -3,7 +3,7 @@
     <!-- Declaring colors for using in themes/UI component attributes with a meaningful name -->
     <color name="colorPrimary">@color/blue_free_speech</color>
     <color name="colorPrimaryDark">@color/blue_tory</color>
-    <color name="colorAccent">@color/red_violet</color>
+    <color name="colorAccent">@color/white_80</color>
 
     <color name="white_18">#2EFFFFFF</color>
     <color name="white_20">#33FFFFFF</color>

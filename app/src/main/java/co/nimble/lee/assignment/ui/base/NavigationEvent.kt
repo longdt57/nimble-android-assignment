@@ -4,4 +4,5 @@ import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 
 sealed class NavigationEvent {
     data class SurveyDetail(val bundle: SurveyDetailBundle) : NavigationEvent()
+    object ForgotPassword : NavigationEvent()
 }

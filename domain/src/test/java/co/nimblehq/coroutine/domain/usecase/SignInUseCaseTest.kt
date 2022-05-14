@@ -2,7 +2,7 @@ package co.nimblehq.coroutine.domain.usecase
 
 import co.nimble.lee.assignment.domain.model.TokenInfo
 import co.nimble.lee.assignment.domain.repository.OAuthRepository
-import co.nimble.lee.assignment.domain.usecase.SignInWithUseCase
+import co.nimble.lee.assignment.domain.usecase.SignInUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -16,9 +16,9 @@ import org.junit.Test
 class SignInUseCaseTest {
 
     private lateinit var mockRepository: OAuthRepository
-    private lateinit var usecase: SignInWithUseCase
+    private lateinit var usecase: SignInUseCase
 
-    private val param = SignInWithUseCase.Param(
+    private val param = SignInUseCase.Param(
         email = "dev@nimblehq.co",
         password = "12345678"
     )
@@ -36,7 +36,7 @@ class SignInUseCaseTest {
     @Before
     fun setup() {
         mockRepository = mockk()
-        usecase = SignInWithUseCase(mockRepository)
+        usecase = SignInUseCase(mockRepository)
     }
 
     @Test

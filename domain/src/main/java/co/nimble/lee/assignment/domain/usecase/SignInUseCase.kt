@@ -4,8 +4,9 @@ import co.nimble.lee.assignment.domain.model.TokenInfo
 import co.nimble.lee.assignment.domain.repository.OAuthRepository
 import javax.inject.Inject
 
-class SignInWithUseCase @Inject constructor(private val userRepository: OAuthRepository) :
-    BaseUseCase<SignInWithUseCase.Param, TokenInfo>() {
+class SignInUseCase @Inject constructor(
+    private val userRepository: OAuthRepository
+) : BaseUseCase<SignInUseCase.Param, TokenInfo>() {
 
     override suspend fun execute(param: Param): TokenInfo {
         return userRepository.signInWithEmail(param.email, param.password).apply {

@@ -1,34 +1,32 @@
-package co.nimble.lee.assignment.ui.screens
+package co.nimble.lee.assignment.ui.screens.auth
 
 import androidx.fragment.app.Fragment
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.ui.base.BaseNavigator
 import co.nimble.lee.assignment.ui.base.BaseNavigatorImpl
 import co.nimble.lee.assignment.ui.base.NavigationEvent
-import co.nimble.lee.assignment.ui.screens.home.HomeFragmentDirections
-import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import javax.inject.Inject
 
-interface MainNavigator : BaseNavigator
+interface AuthNavigator : BaseNavigator
 
-class MainNavigatorImpl @Inject constructor(
+class AuthNavigatorImpl @Inject constructor(
     fragment: Fragment
-) : BaseNavigatorImpl(fragment), MainNavigator {
+) : BaseNavigatorImpl(fragment), AuthNavigator {
 
     override val navHostFragmentId = R.id.navHostFragment
 
     override fun navigate(event: NavigationEvent) {
         when (event) {
-            is NavigationEvent.SurveyDetail -> navigateToSurveyDetail(event.bundle)
+            is NavigationEvent.ForgotPassword -> navigateToForgotPasswordScreen()
             else -> unsupportedNavigation()
         }
     }
 
-    private fun navigateToSurveyDetail(bundle: SurveyDetailBundle) {
+    private fun navigateToForgotPasswordScreen() {
         val navController = findNavController()
         when (navController?.currentDestination?.id) {
-            R.id.homeFragment -> navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToSecondFragment(bundle)
+            R.id.signInFragment -> navController.navigate(
+                SignInFragmentDirections.actionSignInToForgotPasswordFragment()
             )
             else -> unsupportedNavigation()
         }

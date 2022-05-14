@@ -1,6 +1,6 @@
 package co.nimble.lee.assignment.ui.screens.auth
 
-import co.nimble.lee.assignment.domain.usecase.SignInUseCase
+import co.nimble.lee.assignment.domain.usecase.ForgotPasswordUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import co.nimble.lee.assignment.ui.base.BaseViewModel
 import co.nimble.lee.assignment.util.DispatchersProvider
@@ -10,22 +10,22 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(
+class ForgotPasswordViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
-    private val signInWithEmailUseCase: SignInUseCase
+    private val forgotPasswordUseCase: ForgotPasswordUseCase
 ) : BaseViewModel(dispatchers) {
 
-    private val _signInSuccess = MutableSharedFlow<Unit>()
-    val signInSuccess: SharedFlow<Unit>
-        get() = _signInSuccess
+    private val _requestSuccess = MutableSharedFlow<String>()
+    val requestSuccess: SharedFlow<String>
+        get() = _requestSuccess
 
-    internal fun signInWithEmail(email: String, password: String) {
+    internal fun forgotPassword(email: String) {
         showLoading()
         execute {
-            val param = SignInUseCase.Param(email = email, password = password)
-            when (val result = signInWithEmailUseCase.invoke(parameters = param)) {
+            val param = ForgotPasswordUseCase.Param(email = email)
+            when (val result = forgotPasswordUseCase.invoke(parameters = param)) {
                 is UseCaseResult.Success -> {
-                    _signInSuccess.emit(Unit)
+                    _requestSuccess.emit(result.data?.message.orEmpty())
                 }
                 is UseCaseResult.Error -> {
                     _error.emit(result.exception.message.orEmpty())

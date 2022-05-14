@@ -10,5 +10,5 @@ data class LogoutRequest(
     @Json(name="client_id")
     val clientId: String? = BuildConfig.API_KEY,
     @Json(name="client_secret")
-    val clientSecret: String? = BuildConfig.API_SECRET,
+    val clientSecret: String? = BuildConfig.API_SECRET
 )

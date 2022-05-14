@@ -1,7 +1,9 @@
 package co.nimble.lee.assignment.data.repository
 
+import co.nimble.lee.assignment.data.request.ForgotPasswordRequest
 import co.nimble.lee.assignment.data.request.LogoutRequest
 import co.nimble.lee.assignment.data.request.SignInRequest
+import co.nimble.lee.assignment.data.response.base.toMessage
 import co.nimble.lee.assignment.data.response.toTokenInfo
 import co.nimble.lee.assignment.data.service.OAuthApiService
 import co.nimble.lee.assignment.data.storage.local.TokenStorage
@@ -22,6 +24,9 @@ class OAuthRepositoryImpl constructor(
             )
         ).data!!.toTokenInfo()
     }
+
+    override suspend fun forgotPassword(email: String) =
+        apiService.forgotPassword(ForgotPasswordRequest(email)).meta?.toMessage()
 
     override suspend fun saveAuthToken(tokenInfo: TokenInfo) {
         tokenStorage.saveTokenInfo(tokenInfo)
