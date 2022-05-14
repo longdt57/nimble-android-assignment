@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AuthenticationActivity : BaseActivity<ActivityAuthenBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ActivityAuthenBinding
-        get() = { inflater -> ActivityAuthenBinding.inflate(inflater) }
+        get() = ActivityAuthenBinding::inflate
 
     override val viewModel by viewModels<MainViewModel>()
 }

@@ -6,7 +6,7 @@ import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
 import co.nimble.lee.assignment.extension.provideNavArgs
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.model.SurveyUIModel
-import co.nimble.lee.assignment.ui.base.BaseFragment
+import co.nimble.lee.assignment.ui.base.BaseToolbarFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
+class SurveyDetailFragment : BaseToolbarFragment<FragmentSurveyDetailBinding>() {
 
     @Inject
     lateinit var navigator: MainNavigator
@@ -27,9 +27,7 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
         get() = args.bundle.surveyUIModel
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSurveyDetailBinding
-        get() = { inflater, container, attachToParent ->
-            FragmentSurveyDetailBinding.inflate(inflater, container, attachToParent)
-        }
+        get() = FragmentSurveyDetailBinding::inflate
 
     override fun setupView() {
         binding.tvTitle.text = surveyUiModel.title
@@ -39,9 +37,6 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
 
     override fun bindViewEvents() {
         super.bindViewEvents()
-        binding.ivBack.setOnSingleClickListener {
-            navigator.navigateUp()
-        }
         binding.btnSurvey.setOnSingleClickListener {
             toaster.display("Not Implemented Yet")
         }

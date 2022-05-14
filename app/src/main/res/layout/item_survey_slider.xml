@@ -43,17 +43,15 @@
         app:layout_constraintStart_toStartOf="@id/tvDescription"
         tools:text="@tools:sample/lorem/random" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnTakeSurvey"
-        style="@style/PrimaryButton"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/dimen_16"
         android:layout_marginBottom="@dimen/dimen_48"
-        android:paddingStart="@dimen/dimen_20"
-        android:paddingEnd="@dimen/dimen_20"
-        android:text="@string/take_survey"
-        android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_arrow_right_circle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
