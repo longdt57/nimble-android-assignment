@@ -3,5 +3,4 @@
     <!-- Declaring colors with their real name from the style guide we get -->
     <color name="blue_free_speech">#3F51B5</color>
     <color name="blue_tory">#303F9F</color>
-    <color name="red_violet">#FF4081</color>
 </resources>

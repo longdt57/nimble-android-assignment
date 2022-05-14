@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="N17R">
-        <item name="android:textSize">17sp</item>
+    <!--  Font and text color  -->
+    <style name="N_R">
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/app_regular</item>
     </style>
 
-    <style name="N28SB">
-        <item name="android:textSize">28sp</item>
-        <item name="android:fontFamily">@font/app_semibold</item>
-    </style>
-
-    <style name="N34B">
-        <item name="android:textSize">34sp</item>
-        <item name="android:fontFamily">@font/app_bold</item>
-    </style>
-
-    <style name="N15S">
-        <item name="android:textSize">15sp</item>
+    <style name="N_S">
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/app_small</item>
     </style>
 
-    <style name="N17SB">
-        <item name="android:textSize">17sp</item>
+    <style name="N_SB">
+        <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/app_semibold</item>
     </style>
+
+    <style name="N_B">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/app_bold</item>
+    </style>
+
+    <!--  Font Size  -->
+
+    <style name="N17R" parent="N_R">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="N13R" parent="N_R">
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="N15S" parent="N_S">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="N17SB" parent="N_SB">
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="N28SB" parent="N_SB">
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="N34B" parent="N_B">
+        <item name="android:textSize">34sp</item>
+    </style>
+
 </resources>

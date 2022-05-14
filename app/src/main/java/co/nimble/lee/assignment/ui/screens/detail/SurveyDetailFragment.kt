@@ -8,12 +8,17 @@ import androidx.navigation.fragment.navArgs
 import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
+import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
+
+    @Inject
+    lateinit var navigator: MainNavigator
 
     private val viewModel by viewModels<SurveyDetailViewModel>()
 
@@ -36,7 +41,7 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
     override fun bindViewEvents() {
         super.bindViewEvents()
         binding.ivBack.setOnSingleClickListener {
-            findNavController().popBackStack()
+            navigator.navigateUp()
         }
         binding.btnSurvey.setOnSingleClickListener {
             toaster.display("Not Implemented Yet")

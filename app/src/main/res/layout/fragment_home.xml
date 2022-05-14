@@ -34,11 +34,13 @@
 
         <TextView
             android:id="@+id/tvDateTime"
+            style="@style/N13R"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_48"
             android:lines="1"
+            android:textAllCaps="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Monday, JUNE 15" />
@@ -62,7 +64,7 @@
             android:layout_marginEnd="@dimen/dimen_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/nb_profile_place_holder" />
+            app:srcCompat="@drawable/nb_profile_place_holder" />
 
         <TextView
             android:id="@+id/tvState"

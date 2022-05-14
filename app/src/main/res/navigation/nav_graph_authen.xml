@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="co.nimble.lee.assignment.ui.screens.auth.SignInFragment" />
+        android:name="co.nimble.lee.assignment.ui.screens.auth.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+
+        <action
+            android:id="@+id/action_signIn_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="co.nimble.lee.assignment.ui.screens.auth.ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password" />
 
 </navigation>
