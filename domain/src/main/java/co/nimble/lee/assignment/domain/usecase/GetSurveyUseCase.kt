@@ -11,22 +11,23 @@ class GetSurveyUseCase @Inject constructor(private val surveyRepository: SurveyR
     override suspend fun execute(param: Param): Pair<List<Survey>, SurveyMeta?> {
         return try {
             return surveyRepository.getSurveysRemote(pageNumber = param.pageNumber, pageSize = param.pageSize)
-                .apply { onRemoteSuccess(param, this) }
+                .apply {
+                    clearLocalDatabaseIfFirstPage(param)
+                    surveyRepository.saveToDatabase(first)
+                }
         } catch (exception: Exception) {
-            if (param.isFirstPage())
-                Pair(surveyRepository.getSurveysLocal(), null)
+            if (param.isFirstPage()) Pair(surveyRepository.getSurveysLocal(), null)
             else throw exception
         }
     }
 
-    private suspend fun onRemoteSuccess(param: Param, pair: Pair<List<Survey>, SurveyMeta>) {
+    private suspend fun clearLocalDatabaseIfFirstPage(param: Param) {
         if (param.isFirstPage()) {
             surveyRepository.clearSurveyDatabase()
         }
-        surveyRepository.saveToDatabase(pair.first)
     }
 
-    data class Param(
+    class Param(
         val pageNumber: Int = 1,
         val pageSize: Int = 5
     ) {

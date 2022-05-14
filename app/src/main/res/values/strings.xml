@@ -18,7 +18,7 @@
     <string name="home_empty_state_text">Survey list is empty</string>
     <string name="success">Success</string>
     <string name="forgot_password_dialog_message">Check you email to reset password.</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="forgot_password_description">Enter your email to receive instructions for resetting your password.</string>
 
 </resources>

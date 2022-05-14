@@ -47,15 +47,24 @@ class SignInUseCaseTest {
         usecase.invoke(param).run {
             (this as UseCaseResult.Success).data shouldBe tokenInfo
         }
+
+        io.mockk.verify(exactly = 1) {
+            runBlockingTest { mockRepository.saveAuthToken(tokenInfo) }
+        }
     }
 
     @Test
     fun `When calling request failed, it returns wrapped error`() = runBlockingTest {
         val expected = Exception()
-        coEvery { mockRepository.signInWithEmail(param.email, param.password) } throws expected
+        coEvery { mockRepository.signInWithEmail(any(), any()) } throws expected
+        coEvery { mockRepository.saveAuthToken(any()) } returns Unit
 
         usecase.invoke(param).run {
             (this as UseCaseResult.Error).exception shouldBe expected
+        }
+
+        io.mockk.verify(exactly = 0) {
+            runBlockingTest { mockRepository.saveAuthToken(any()) }
         }
     }
 }

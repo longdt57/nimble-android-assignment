@@ -1,6 +1,6 @@
 package co.nimblehq.coroutine.data.repository
 
-import co.nimble.lee.assignment.data.database.AppDatabase
+import co.nimble.lee.assignment.data.database.SurveyDao
 import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
 import co.nimble.lee.assignment.data.response.SurveyMetaResponse
 import co.nimble.lee.assignment.data.response.SurveyResponse
@@ -22,7 +22,7 @@ import org.junit.Test
 class SurveyRepositoryTest {
 
     private lateinit var mockService: ApiService
-    private lateinit var mockDatabase: AppDatabase
+    private lateinit var mockDatabase: SurveyDao
     private lateinit var repository: SurveyRepository
 
     private val survey = SurveyResponse(
@@ -47,14 +47,21 @@ class SurveyRepositoryTest {
     fun setup() {
         mockService = mockk()
         mockDatabase = mockk()
-        repository = SurveyRepositoryImpl(mockService,  mockDatabase)
+        repository = SurveyRepositoryImpl(mockService, mockDatabase)
     }
 
     @Test
-    fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
+    fun `When calling getSurveys request successfully, it returns success response`() = runBlockingTest {
         coEvery { mockService.getSurveys(1, 1) } returns MetaObjectList(listOf(survey), surveyMeta)
 
         repository.getSurveysRemote(1, 1) shouldBe Pair(listOf(survey.toSurvey()), surveyMeta.toSurveyMeta())
+    }
+
+    @Test
+    fun `When calling getSurveys from database successfully, it returns surveys`() = runBlockingTest {
+        coEvery { mockDatabase.getAll() } returns listOf(survey)
+
+        repository.getSurveysLocal() shouldBe listOf(survey.toSurvey())
     }
 
     @Test

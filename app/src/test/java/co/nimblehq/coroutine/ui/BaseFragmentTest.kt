@@ -1,4 +1,4 @@
-package co.nimble.lee.assignment.ui
+package co.nimblehq.coroutine.ui
 
 import android.content.ComponentName
 import android.content.Intent
