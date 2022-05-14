@@ -2,23 +2,24 @@ package co.nimble.lee.assignment.ui.screens.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
-import co.nimble.lee.assignment.databinding.ViewLoadingBinding
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.getDateTimeEEMMdd
 import co.nimble.lee.assignment.ui.screens.ext.navigateToAuthentication
-import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
-import co.nimblehq.common.extensions.visibleOrGone
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: HomeViewModel by provideViewModels()
 
-    private lateinit var viewLoadingBinding: ViewLoadingBinding
+    private lateinit var skeleton: SkeletonScreen
 
     private val surveyViewPager: ViewPager2
         get() = binding.viewPager
@@ -48,9 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
 
     override fun setupView() {
-        viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
         binding.tvDateTime.text = getDateTimeEEMMdd(System.currentTimeMillis())
-
+        bindSkeleton()
         surveyViewPager.adapter = surveyAdapter
         TabLayoutMediator(binding.tabLayout, surveyViewPager) { _, _ -> }.attach()
     }
@@ -86,7 +86,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun bindLoading(isLoading: IsLoading) {
-        viewLoadingBinding.pbLoading.visibleOrGone(isLoading)
+        isLoading.not().apply {
+            binding.tvDateTime.isVisible = this
+            binding.tvHomeTitle.isVisible = this
+            binding.ivProfile.isVisible = this
+        }
+
+        if (isLoading) {
+            skeleton.show()
+        } else {
+            skeleton.hide()
+        }
     }
 
     private fun navigateToAuthentication(unit: Unit) {
@@ -125,5 +135,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 isRefreshing = false
             }
         }
+    }
+
+    private fun bindSkeleton() {
+        skeleton = Skeleton.bind(binding.viewPager)
+            .load(R.layout.layout_home_skeleton)
+            .shimmer(true)
+            .angle(20)
+            .show()
     }
 }

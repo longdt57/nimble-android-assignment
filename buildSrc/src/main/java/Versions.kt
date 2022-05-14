@@ -42,6 +42,8 @@ object Versions {
     const val SKELETON_VERSION = "1.1.2"
     const val SHIMMER_LAYOUT_VERSION = "2.1.0"
 
+    const val SWIPE_REFRESH_VERSION = "1.1.0"
+
     const val TIMBER_LOG_VERSION = "4.7.1"
 
     // Configuration

@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="@drawable/nb_background">
@@ -55,15 +56,24 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivProfile"
-            android:layout_width="@dimen/icon_size_36"
-            android:layout_height="@dimen/icon_size_36"
+            android:layout_width="@dimen/home_avatar_size"
+            android:layout_height="@dimen/home_avatar_size"
             android:layout_marginTop="@dimen/dimen_56"
             android:layout_marginEnd="@dimen/dimen_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/nb_profile_place_holder" />
 
-        <include layout="@layout/view_loading" />
+        <TextView
+            android:id="@+id/tvState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_empty_state_text"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
