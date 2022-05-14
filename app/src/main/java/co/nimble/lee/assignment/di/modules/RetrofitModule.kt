@@ -1,8 +1,8 @@
 package co.nimble.lee.assignment.di.modules
 
 import co.nimble.lee.assignment.BuildConfig
-import co.nimble.lee.assignment.data.service.OAuthApiService
 import co.nimble.lee.assignment.data.service.ApiService
+import co.nimble.lee.assignment.data.service.OAuthApiService
 import co.nimble.lee.assignment.data.service.providers.ApiServiceProvider
 import co.nimble.lee.assignment.data.service.providers.ConverterFactoryProvider
 import co.nimble.lee.assignment.data.service.providers.RetrofitProvider

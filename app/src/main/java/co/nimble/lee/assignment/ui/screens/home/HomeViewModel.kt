@@ -4,24 +4,24 @@ import androidx.lifecycle.viewModelScope
 import co.nimble.lee.assignment.domain.model.SurveyMeta
 import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
 import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
-import co.nimble.lee.assignment.ui.base.BaseViewModel
-import co.nimble.lee.assignment.ui.base.NavigationEvent
-import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.model.toSurveyUiModel
 import co.nimble.lee.assignment.model.toUserUiModel
+import co.nimble.lee.assignment.ui.base.BaseViewModel
+import co.nimble.lee.assignment.ui.base.NavigationEvent
+import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
 import co.nimble.lee.assignment.ui.screens.ext.orFalse
 import co.nimble.lee.assignment.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 interface Output {
 
@@ -85,7 +85,9 @@ class HomeViewModel @Inject constructor(
             when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(pageInfo.first, pageInfo.second))) {
                 is UseCaseResult.Success -> {
                     _surveyUiModels.apply {
-                        value = value.toMutableList().apply { addAll(result.data.first.toSurveyUiModel()) }.toSet().toList()
+                        value = value.toMutableList().apply {
+                            addAll(result.data.first.toSurveyUiModel())
+                        }.toSet().toList()
                     }
                     surveyMeta = result.data.second
                     getUser()

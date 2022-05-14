@@ -93,5 +93,4 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
         binding.edtEmail.hideKeyboard(requireContext())
         viewModel.forgotPassword(binding.edtEmail.text.toString())
     }
-
 }

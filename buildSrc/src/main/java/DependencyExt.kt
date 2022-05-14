@@ -40,6 +40,7 @@ fun DependencyHandler.addRoom() {
     add("implementation", "androidx.room:room-runtime:${Versions.ROOM_VERSION}")
     add("implementation", "androidx.room:room-ktx:${Versions.ROOM_VERSION}")
     add("annotationProcessor", "androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    add("kapt", "androidx.room:room-compiler:${Versions.ROOM_VERSION}")
 }
 
 fun DependencyHandler.addTestImplementationBaseLib() {

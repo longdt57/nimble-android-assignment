@@ -5,8 +5,8 @@ import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.ui.base.BaseNavigator
 import co.nimble.lee.assignment.ui.base.BaseNavigatorImpl
 import co.nimble.lee.assignment.ui.base.NavigationEvent
-import co.nimble.lee.assignment.ui.screens.home.HomeFragmentDirections
 import co.nimble.lee.assignment.ui.screens.detail.SurveyDetailBundle
+import co.nimble.lee.assignment.ui.screens.home.HomeFragmentDirections
 import javax.inject.Inject
 
 interface MainNavigator : BaseNavigator

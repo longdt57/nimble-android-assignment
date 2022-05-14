@@ -66,9 +66,11 @@ abstract class BaseNavigatorImpl(
         createDeepLink()
             .setDestination(destinationId).apply {
                 bundle?.let {
-                    setArguments(Bundle().apply {
-                        putParcelable("bundle", bundle)
-                    })
+                    setArguments(
+                        Bundle().apply {
+                            putParcelable("bundle", bundle)
+                        }
+                    )
                 }
             }
             .createPendingIntent()

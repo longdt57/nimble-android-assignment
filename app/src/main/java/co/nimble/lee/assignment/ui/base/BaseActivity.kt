@@ -19,9 +19,11 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(bindingInflater.invoke(layoutInflater).apply {
-            _binding = this
-        }.root)
+        setContentView(
+            bindingInflater.invoke(layoutInflater).apply {
+                _binding = this
+            }.root
+        )
     }
 
     override fun onDestroy() {
