@@ -1,7 +1,6 @@
 package co.nimble.lee.assignment.data.repository
 
 import co.nimble.lee.assignment.data.request.ForgotPasswordRequest
-import co.nimble.lee.assignment.data.request.LogoutRequest
 import co.nimble.lee.assignment.data.request.SignInRequest
 import co.nimble.lee.assignment.data.response.base.toMessage
 import co.nimble.lee.assignment.data.response.toTokenInfo
@@ -9,8 +8,9 @@ import co.nimble.lee.assignment.data.service.OAuthApiService
 import co.nimble.lee.assignment.data.storage.local.TokenStorage
 import co.nimble.lee.assignment.domain.model.TokenInfo
 import co.nimble.lee.assignment.domain.repository.OAuthRepository
+import javax.inject.Inject
 
-class OAuthRepositoryImpl constructor(
+class OAuthRepositoryImpl @Inject constructor(
     private val apiService: OAuthApiService,
     private val tokenStorage: TokenStorage
 ) : OAuthRepository {
@@ -34,11 +34,4 @@ class OAuthRepositoryImpl constructor(
 
     override fun isLoggedIn(): Boolean = tokenStorage.accessToken.isNotBlank()
 
-    override suspend fun logout() {
-        try {
-            apiService.logout(LogoutRequest(token = tokenStorage.refreshToken))
-        } finally {
-            tokenStorage.clearTokenInfo()
-        }
-    }
 }

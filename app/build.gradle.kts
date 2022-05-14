@@ -178,6 +178,10 @@ dependencies {
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
     testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
+    // Optional -- Mockito framework
+    testImplementation("org.mockito:mockito-core:4.5.1")
+    // Optional -- mockito-kotlin
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")

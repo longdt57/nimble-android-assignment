@@ -6,6 +6,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
+import co.nimble.lee.assignment.extension.provideNavArgs
+import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
@@ -20,9 +22,9 @@ class SurveyDetailFragment : BaseFragment<FragmentSurveyDetailBinding>() {
     @Inject
     lateinit var navigator: MainNavigator
 
-    private val viewModel by viewModels<SurveyDetailViewModel>()
+    private val viewModel by provideViewModels<SurveyDetailViewModel>()
 
-    private val args: SurveyDetailFragmentArgs by navArgs()
+    private val args: SurveyDetailFragmentArgs by provideNavArgs()
 
     private val surveyUiModel: SurveyUIModel
         get() = args.bundle.surveyUIModel

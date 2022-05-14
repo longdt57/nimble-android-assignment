@@ -45,6 +45,8 @@ class GetSurveyUseCaseTest {
     fun `When calling request successfully, it returns success response`() = runBlockingTest {
         val expected = Pair(listOf(survey), surveyMeta)
         coEvery { mockRepository.getSurveysRemote(1, 1) } returns expected
+        coEvery { mockRepository.clearSurveyDatabase() } returns Unit
+        coEvery { mockRepository.saveToDatabase(listOf(survey)) } returns Unit
 
         usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {
             (this as UseCaseResult.Success).data shouldBe expected
@@ -55,6 +57,7 @@ class GetSurveyUseCaseTest {
     fun `When calling request failed, it returns wrapped error`() = runBlockingTest {
         val expected = Exception()
         coEvery { mockRepository.getSurveysRemote(1, 1) } throws expected
+        coEvery { mockRepository.getSurveysLocal() } throws expected
 
         usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {
             (this as UseCaseResult.Error).exception shouldBe expected

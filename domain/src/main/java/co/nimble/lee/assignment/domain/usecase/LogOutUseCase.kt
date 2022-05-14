@@ -1,13 +1,19 @@
 package co.nimble.lee.assignment.domain.usecase
 
-import co.nimble.lee.assignment.domain.repository.OAuthRepository
+import co.nimble.lee.assignment.domain.repository.LogoutRepository
 import javax.inject.Inject
 
-class LogOutUseCase @Inject constructor(private val userRepository: OAuthRepository) :
+class LogOutUseCase @Inject constructor(
+    private val repository: LogoutRepository
+) :
     BaseUseCase<Unit, Unit>() {
 
     override suspend fun execute(param: Unit) {
-        return userRepository.logout()
+        logout()
     }
 
+    private suspend fun logout() = try {
+        repository.logout()
+    } catch (e: Exception) {
+    }
 }

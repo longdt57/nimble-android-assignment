@@ -1,13 +1,12 @@
 package co.nimble.lee.assignment.di.modules
 
-import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
+import co.nimble.lee.assignment.data.repository.LogoutRepositoryImpl
 import co.nimble.lee.assignment.data.repository.OAuthRepositoryImpl
+import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
 import co.nimble.lee.assignment.data.repository.UserRepositoryImpl
-import co.nimble.lee.assignment.data.service.OAuthApiService
-import co.nimble.lee.assignment.data.service.ApiService
-import co.nimble.lee.assignment.data.storage.local.TokenStorage
-import co.nimble.lee.assignment.domain.repository.SurveyRepository
+import co.nimble.lee.assignment.domain.repository.LogoutRepository
 import co.nimble.lee.assignment.domain.repository.OAuthRepository
+import co.nimble.lee.assignment.domain.repository.SurveyRepository
 import co.nimble.lee.assignment.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -20,15 +19,21 @@ class RepositoryModule {
 
     @Provides
     fun provideOAuthRepository(
-        apiService: OAuthApiService,
-        tokenStorage: TokenStorage
-    ): OAuthRepository = OAuthRepositoryImpl(apiService, tokenStorage)
+        repoImpl: OAuthRepositoryImpl
+    ): OAuthRepository = repoImpl
 
     @Provides
     fun provideUserRepository(
-        apiService: ApiService,
-    ): UserRepository = UserRepositoryImpl(apiService)
+        repoImpl: UserRepositoryImpl
+    ): UserRepository = repoImpl
 
     @Provides
-    fun provideSurveyRepository(surveyRepositoryImpl: SurveyRepositoryImpl): SurveyRepository = surveyRepositoryImpl
+    fun provideSurveyRepository(
+        repoImpl: SurveyRepositoryImpl
+    ): SurveyRepository = repoImpl
+
+    @Provides
+    fun provideLogoutRepository(
+        repoImpl: LogoutRepositoryImpl
+    ): LogoutRepository = repoImpl
 }

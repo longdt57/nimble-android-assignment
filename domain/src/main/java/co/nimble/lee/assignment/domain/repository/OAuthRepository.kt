@@ -7,8 +7,7 @@ interface OAuthRepository {
 
     suspend fun signInWithEmail(email: String, password: String): TokenInfo
     suspend fun saveAuthToken(tokenInfo: TokenInfo)
-
-    suspend fun logout()
-    fun isLoggedIn(): Boolean
     suspend fun forgotPassword(email: String): Message?
+
+    fun isLoggedIn(): Boolean
 }
