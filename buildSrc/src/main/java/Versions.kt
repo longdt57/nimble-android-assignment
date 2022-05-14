@@ -56,4 +56,6 @@ object Versions {
     const val TEST_MOCKK_VERSION = "1.10.6"
     const val TEST_ROBOLECTRIC_VERSION = "4.3.1"
     const val TEST_RUNNER_VERSION = "1.3.0"
+    const val TEST_MOCKITO = "4.5.1"
+    const val TEST_MOCKITO_KOTLIN = "4.0.0"
 }

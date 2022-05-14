@@ -142,22 +142,16 @@ dependencies {
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFRESH_VERSION}")
 
-    // Room
-    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
-    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:${Versions.ROOM_VERSION}")
+    addRoom()
 
 
-    implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
-    kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
+    addHilt()
 
     implementation("com.jakewharton.timber:timber:${Versions.TIMBER_LOG_VERSION}")
-
     implementation("com.github.nimblehq:android-common-ktx:${Versions.ANDROID_COMMON_KTX_VERSION}")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN_VERSION}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
+    addKotlinCoroutine()
 
     // Git Open Source
     api("com.ethanhua:skeleton:${Versions.SKELETON_VERSION}")
@@ -168,8 +162,7 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing
-    testImplementation("io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
-    testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")
+    addTestImplementationBaseLib()
     testImplementation("org.robolectric:robolectric:${Versions.TEST_ROBOLECTRIC_VERSION}")
     testImplementation("androidx.test:core:${Versions.ANDROIDX_CORE_KTX_VERSION}")
     testImplementation("androidx.test:runner:${Versions.TEST_RUNNER_VERSION}")
@@ -177,11 +170,6 @@ dependencies {
     testImplementation("androidx.test.ext:junit-ktx:${Versions.TEST_JUNIT_ANDROIDX_EXT_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
-    testImplementation("io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
-    // Optional -- Mockito framework
-    testImplementation("org.mockito:mockito-core:4.5.1")
-    // Optional -- mockito-kotlin
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
