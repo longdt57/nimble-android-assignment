@@ -1,20 +1,33 @@
 package co.nimble.lee.assignment.data.response
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import co.nimble.lee.assignment.domain.model.Survey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
+@Entity
 data class SurveyResponse(
-    @Json(name = "attributes")
-    val attributes: Attributes? = null,
     @Json(name = "id")
-    val id: String,
-    @Json(name = "relationships")
-    val relationships: Relationships? = null,
+    @PrimaryKey
+    var id: String,
+
     @Json(name = "type")
-    val type: String? = null
+    var type: String? = null,
+
+    @Json(name = "attributes")
+    @Embedded
+    var attributes: Attributes? = null
+
 ) {
+
+    @Json(name = "relationships")
+    @Ignore
+    var relationships: Relationships? = null
+
     @JsonClass(generateAdapter = true)
     data class Attributes(
         @Json(name = "active_at")
@@ -63,10 +76,10 @@ data class SurveyResponse(
 fun SurveyResponse.toSurvey(): Survey {
     return Survey(
         id = id,
+        type = type,
         title = attributes?.title.orEmpty(),
         description = attributes?.description.orEmpty(),
         coverImageUrl = attributes?.coverImageUrl.orEmpty(),
-        type = type,
         thankEmailAboveThreshold = attributes?.thankEmailAboveThreshold,
         isActive = attributes?.isActive,
         createdAt = attributes?.createdAt,
@@ -75,3 +88,19 @@ fun SurveyResponse.toSurvey(): Survey {
         surveyType = attributes?.surveyType
     )
 }
+
+fun Survey.toSurveyDTO() = SurveyResponse(
+    id = id,
+    type = type,
+    attributes = SurveyResponse.Attributes(
+        title = title,
+        description = description,
+        coverImageUrl = coverImageUrl,
+        thankEmailAboveThreshold = thankEmailAboveThreshold,
+        isActive = isActive,
+        createdAt = createdAt,
+        activeAt = activeAt,
+        inactiveAt = inactiveAt,
+        surveyType = surveyType
+    )
+)

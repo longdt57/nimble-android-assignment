@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-
+    id("kotlin-kapt")
     id("plugins.jacoco-report")
 }
 
@@ -79,6 +79,14 @@ dependencies {
     api("com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_VERSION}")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
+
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
+    kapt("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:${Versions.ROOM_VERSION}")
+    // To use Kotlin annotation processing tool (kapt)
 
     // Testing
     testImplementation("junit:junit:${Versions.TEST_JUNIT_VERSION}")

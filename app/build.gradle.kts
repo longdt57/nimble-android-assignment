@@ -158,6 +158,12 @@ dependencies {
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:${Versions.ROOM_VERSION}")
+
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
     // Testing

@@ -37,6 +37,8 @@ object Versions {
     const val OKHTTP_VERSION = "4.9.1"
     const val RETROFIT_VERSION = "2.9.0"
 
+    const val ROOM_VERSION = "2.3.0"
+
     const val SKELETON_VERSION = "1.1.2"
     const val SHIMMER_LAYOUT_VERSION = "2.1.0"
 

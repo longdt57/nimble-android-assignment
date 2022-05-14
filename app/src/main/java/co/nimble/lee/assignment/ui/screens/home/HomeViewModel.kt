@@ -13,6 +13,7 @@ import co.nimble.lee.assignment.model.SurveyUIModel
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.model.toSurveyUiModel
 import co.nimble.lee.assignment.model.toUserUiModel
+import co.nimble.lee.assignment.ui.screens.ext.orFalse
 import co.nimble.lee.assignment.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -78,12 +79,13 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadMoreSurveys(loadedSize: Int) {
-        val pageInfo = surveyMeta?.getPageNumberAndSize(loadedSize) ?: return
+        if (surveyMeta?.canLoadMore(loadedSize).orFalse().not()) return
+        val pageInfo = surveyMeta!!.getPageNumberAndSize(loadedSize)
         execute {
             when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(pageInfo.first, pageInfo.second))) {
                 is UseCaseResult.Success -> {
                     _surveyUiModels.apply {
-                        value = value.toMutableList().apply { addAll(result.data.first.toSurveyUiModel()) }
+                        value = value.toMutableList().apply { addAll(result.data.first.toSurveyUiModel()) }.toSet().toList()
                     }
                     surveyMeta = result.data.second
                     getUser()
