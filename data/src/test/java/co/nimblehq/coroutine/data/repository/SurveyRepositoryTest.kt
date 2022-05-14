@@ -1,5 +1,6 @@
 package co.nimblehq.coroutine.data.repository
 
+import co.nimble.lee.assignment.data.database.AppDatabase
 import co.nimble.lee.assignment.data.repository.SurveyRepositoryImpl
 import co.nimble.lee.assignment.data.response.SurveyMetaResponse
 import co.nimble.lee.assignment.data.response.SurveyResponse
@@ -21,6 +22,7 @@ import org.junit.Test
 class SurveyRepositoryTest {
 
     private lateinit var mockService: ApiService
+    private lateinit var mockDatabase: AppDatabase
     private lateinit var repository: SurveyRepository
 
     private val survey = SurveyResponse(
@@ -44,14 +46,15 @@ class SurveyRepositoryTest {
     @Before
     fun setup() {
         mockService = mockk()
-        repository = SurveyRepositoryImpl(mockService)
+        mockDatabase = mockk()
+        repository = SurveyRepositoryImpl(mockService,  mockDatabase)
     }
 
     @Test
     fun `When calling getUsers request successfully, it returns success response`() = runBlockingTest {
         coEvery { mockService.getSurveys(1, 1) } returns MetaObjectList(listOf(survey), surveyMeta)
 
-        repository.getSurveys(1, 1) shouldBe Pair(listOf(survey.toSurvey()), surveyMeta.toSurveyMeta())
+        repository.getSurveysRemote(1, 1) shouldBe Pair(listOf(survey.toSurvey()), surveyMeta.toSurveyMeta())
     }
 
     @Test
@@ -59,7 +62,7 @@ class SurveyRepositoryTest {
         coEvery { mockService.getSurveys(1, 1) } throws Throwable()
 
         shouldThrow<Throwable> {
-            repository.getSurveys(1, 1)
+            repository.getSurveysRemote(1, 1)
         }
     }
 }
