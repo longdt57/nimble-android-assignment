@@ -12,6 +12,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:windowBackground">@drawable/overlay</item>
     </style>
 
     <style name="FullScreenTheme" parent="AppTheme" />

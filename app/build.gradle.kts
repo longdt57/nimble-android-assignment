@@ -140,7 +140,17 @@ dependencies {
     implementation("androidx.navigation:navigation-runtime-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
     implementation("androidx.navigation:navigation-ui-ktx:${Versions.ANDROIDX_NAVIGATION_VERSION}")
 
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFRESH_VERSION}")
+
+    // Room
+    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
+    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:${Versions.ROOM_VERSION}")
+
+
     implementation("com.google.dagger:hilt-android:${Versions.HILT_VERSION}")
+    kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
 
     implementation("com.jakewharton.timber:timber:${Versions.TIMBER_LOG_VERSION}")
 
@@ -149,20 +159,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.KOTLIN_VERSION}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLINX_COROUTINES_VERSION}")
 
-    kapt("com.google.dagger:hilt-compiler:${Versions.HILT_VERSION}")
-
-//    implementation("com.ethanhua:skeleton:1.1.2")
-//    implementation("io.supercharge:shimmerlayout:2.1.0")
+    // Git Open Source
+    api("com.ethanhua:skeleton:${Versions.SKELETON_VERSION}")
+    api("io.supercharge:shimmerlayout:${Versions.SHIMMER_LAYOUT_VERSION}")
 
     api("com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}")
-
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
-    // Room
-    implementation("androidx.room:room-runtime:${Versions.ROOM_VERSION}")
-    annotationProcessor("androidx.room:room-compiler:${Versions.ROOM_VERSION}")
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:${Versions.ROOM_VERSION}")
 
     debugImplementation("androidx.fragment:fragment-testing:${Versions.ANDROIDX_FRAGMENT_VERSION}")
 
