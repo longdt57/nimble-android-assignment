@@ -44,9 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
-        get() = { inflater, container, attachToParent ->
-            FragmentHomeBinding.inflate(inflater, container, attachToParent)
-        }
+        get() = FragmentHomeBinding::inflate
 
     override fun setupView() {
         binding.tvDateTime.text = getDateTimeEEMMdd(System.currentTimeMillis())
@@ -59,6 +57,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.bindViewEvents()
         binding.ivProfile.setOnSingleClickListener {
             viewModel.logout()
+        }
+        binding.btnTakeSurvey.setOnSingleClickListener {
+            openSurveyDetailScreen(surveyAdapter.currentList[surveyViewPager.currentItem])
         }
         bindSwipeRefreshEvent()
         bindViewPageEvent()
@@ -84,6 +85,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
         binding.tvState.isVisible = userUiModels.isNullOrEmpty()
+
+        // Avoid resubmit the same data when fragment recreate view
+        if (userUiModels == surveyAdapter.currentList) {
+            return
+        }
+
         surveyAdapter.submitList(userUiModels)
     }
 
@@ -92,6 +99,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding.tvDateTime.isVisible = this
             binding.tvHomeTitle.isVisible = this
             binding.ivProfile.isVisible = this
+            binding.btnTakeSurvey.isVisible = this
         }
 
         if (isLoading) {

@@ -29,14 +29,17 @@ class SignInFragment : BaseFragment<FragmentSignInBinding>() {
 
     private lateinit var viewLoadingBinding: ViewLoadingBinding
 
+    private var shouldShowAnimation: Boolean = true
+
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSignInBinding
-        get() = { inflater, container, attachToParent ->
-            FragmentSignInBinding.inflate(inflater, container, attachToParent)
-        }
+        get() = FragmentSignInBinding::inflate
 
     override fun setupView() {
-        startLogoAnim()
-        startViewAnim()
+        if (shouldShowAnimation) {
+            startLogoAnim()
+            startViewAnim()
+            shouldShowAnimation = false
+        }
 
         viewLoadingBinding = ViewLoadingBinding.bind(binding.root)
     }

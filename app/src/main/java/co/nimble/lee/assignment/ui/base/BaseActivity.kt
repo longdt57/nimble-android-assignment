@@ -18,6 +18,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         get() = _binding as VB
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLightStatusBar()
         super.onCreate(savedInstanceState)
         setContentView(
             bindingInflater.invoke(layoutInflater).apply {
