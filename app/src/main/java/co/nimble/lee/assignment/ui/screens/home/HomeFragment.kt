@@ -37,6 +37,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val surveyViewPager: ViewPager2
         get() = binding.viewPager
 
+    private var lastPosition: Int
+        get() = viewModel.lastSelectedPosition
+        set(value) {
+            viewModel.lastSelectedPosition = value
+        }
+
     private val surveyAdapter: SurveyPagerAdapter by lazy {
         SurveyPagerAdapter { survey, _ ->
             openSurveyDetailScreen(survey)
@@ -49,8 +55,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun setupView() {
         binding.tvDateTime.text = getDateTimeEEMMdd(System.currentTimeMillis())
         bindSkeleton()
-        surveyViewPager.adapter = surveyAdapter
-        TabLayoutMediator(binding.tabLayout, surveyViewPager) { _, _ -> }.attach()
+        setupViewPager()
     }
 
     override fun bindViewEvents() {
@@ -130,6 +135,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    lastPosition = position
                     if (surveyAdapter.needLoadMoreItem(position)) {
                         viewModel.loadMoreSurveys(surveyAdapter.itemCount)
                     }
@@ -153,5 +159,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .shimmer(true)
             .angle(20)
             .show()
+    }
+
+    private fun setupViewPager() {
+        surveyViewPager.adapter = surveyAdapter
+        TabLayoutMediator(binding.tabLayout, surveyViewPager) { _, _ -> }.attach()
+        setLastSelectedSurvey()
+    }
+
+    private fun setLastSelectedSurvey() {
+        if (lastPosition < surveyAdapter.currentList.size &&
+            surveyViewPager.currentItem != lastPosition
+        ) {
+            surveyViewPager.setCurrentItem(lastPosition, false)
+        }
     }
 }

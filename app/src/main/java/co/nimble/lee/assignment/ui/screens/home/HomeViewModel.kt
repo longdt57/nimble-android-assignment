@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 
 interface Output {
 
+    var lastSelectedPosition: Int
     val surveyUiModels: StateFlow<List<SurveyUIModel>>
     val userUiModel: SharedFlow<UserUiModel>
 
@@ -52,6 +53,7 @@ class HomeViewModel @Inject constructor(
         get() = _logoutEvent
 
     private var surveyMeta: SurveyMeta? = null
+    override var lastSelectedPosition: Int = 0
 
     init {
         getSurveys()

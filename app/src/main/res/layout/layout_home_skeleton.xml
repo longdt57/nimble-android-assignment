@@ -4,8 +4,7 @@
     android:id="@+id/home_skeleton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/dimen_20">
+    android:orientation="vertical">
 
     <View
         android:id="@+id/skTopTitle"
@@ -13,7 +12,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="@dimen/dimen_48"
         android:background="@drawable/skeleton_rectangle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
@@ -22,14 +21,11 @@
         android:layout_height="20dp"
         android:layout_marginTop="@dimen/dimen_12"
         android:background="@drawable/skeleton_rectangle"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
         app:layout_constraintTop_toBottomOf="@id/skTopTitle" />
 
     <View
-        android:layout_width="@dimen/home_avatar_size"
-        android:layout_height="@dimen/home_avatar_size"
-        android:layout_marginTop="@dimen/dimen_56"
-        android:layout_marginEnd="@dimen/dimen_20"
+        style="@style/Survey.Profile"
         android:background="@drawable/skeleton_circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +33,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_48"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="@id/guidelineStart">
 
         <View
             android:layout_width="40dp"
@@ -70,5 +67,12 @@
             android:layout_marginTop="@dimen/dimen_4"
             android:background="@drawable/skeleton_rectangle" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/dimen_20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
