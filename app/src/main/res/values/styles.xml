@@ -54,4 +54,13 @@
         <item name="srcCompat">@drawable/ic_logo_white</item>
     </style>
 
+    <style name="Survey" />
+
+    <style name="Survey.Profile" parent="Survey">
+        <item name="android:layout_width">@dimen/home_avatar_size</item>
+        <item name="android:layout_height">@dimen/home_avatar_size</item>
+        <item name="android:layout_marginTop">@dimen/dimen_56</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_20</item>
+    </style>
+
 </resources>
