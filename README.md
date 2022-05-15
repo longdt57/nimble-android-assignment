@@ -7,6 +7,7 @@
 - Clone the project
 - Run the project with Android Studio
 - Replace the `secrets.properties` keys with provided keys.
+- Replace the `urls.properties` url with provided url.
 
 ## Linter and static code analysis
 

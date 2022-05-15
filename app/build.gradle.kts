@@ -15,6 +15,19 @@ addKtlint()
 
 val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
 
+val urls = rootDir.loadGradleProperties("urls.properties")
+fun com.android.build.api.dsl.BuildType.addStringEnv(key: String, value: String) {
+    buildConfigField("String", key, value)
+}
+
+fun com.android.build.api.dsl.BuildType.addBaseUrl(url: String) {
+    addStringEnv("BASE_API_URL", url)
+}
+
+fun com.android.build.api.dsl.BuildType.addDefaultBaseUrl() {
+    addStringEnv("BASE_API_URL", urls["baseUrl"] as String)
+}
+
 android {
     signingConfigs {
         create(BuildType.RELEASE) {
@@ -49,14 +62,14 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs[BuildType.RELEASE]
-            buildConfigField("String", "BASE_API_URL", "\"https://survey-api.nimblehq.co/api/v1/\"")
+            addDefaultBaseUrl()
         }
 
         getByName(BuildType.DEBUG) {
             // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildType.DEBUG]
-            buildConfigField("String", "BASE_API_URL", "\"https://survey-api.nimblehq.co/api/v1/\"")
+            addDefaultBaseUrl()
             /**
              * From AGP 4.2.0, Jacoco generates the report incorrectly, and the report is missing
              * some code coverage from module. On the new version of Gradle, they introduce a new

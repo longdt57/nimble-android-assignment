@@ -7,6 +7,24 @@ plugins {
 
 addKtlint()
 
+val secrets = rootDir.loadGradleProperties("secrets.properties")
+
+fun com.android.build.api.dsl.BuildType.addStringEnv(key: String, value: String) {
+    buildConfigField("String", key, value)
+}
+fun com.android.build.api.dsl.BuildType.addApiKey(value: String) {
+    addStringEnv("API_KEY", value)
+}
+
+fun com.android.build.api.dsl.BuildType.addApiSecret(value: String) {
+    addStringEnv("API_SECRET", value)
+}
+
+fun com.android.build.api.dsl.BuildType.addDefaultSecret() {
+    addApiKey(secrets["clientId"] as String)
+    addApiSecret(secrets["clientSecret"] as String)
+}
+
 android {
     compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
@@ -24,8 +42,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 
-            buildConfigField("String", "API_KEY", "\"6GbE8dhoz519l2N_F99StqoOs6Tcmm1rXgda4q__rIw\"")
-            buildConfigField("String", "API_SECRET", "\"_ayfIm7BeUAhx2W1OUqi20fwO3uNxfo1QstyKlFCgHw\"")
+            addDefaultSecret()
         }
 
         getByName(BuildType.DEBUG) {
@@ -38,8 +55,7 @@ android {
              */
             isTestCoverageEnabled = true
 
-            buildConfigField("String", "API_KEY", "\"6GbE8dhoz519l2N_F99StqoOs6Tcmm1rXgda4q__rIw\"")
-            buildConfigField("String", "API_SECRET", "\"_ayfIm7BeUAhx2W1OUqi20fwO3uNxfo1QstyKlFCgHw\"")
+            addDefaultSecret()
         }
     }
 
