@@ -8,9 +8,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCover"
+        style="@style/Survey.CoverImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/nb_background" />
