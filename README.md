@@ -1,11 +1,12 @@
-# Android Templates: Coroutine
+# Surveys (Coroutine)
 
-- Our optimized Android templates used in our android projects
+- An assignment from Nimble
 
 ## Setup
 
 - Clone the project
 - Run the project with Android Studio
+- Replace the `secrets.properties` keys with provided keys.
 
 ## Linter and static code analysis
 
@@ -13,6 +14,9 @@
 
 ```
 $ ./gradlew lint
+
+Auto format code
+$ ./gradlew ktlintFormat
 ```
 
 Report is located at: `./app/build/reports/lint/`
