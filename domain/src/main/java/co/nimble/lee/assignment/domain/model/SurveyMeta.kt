@@ -7,7 +7,7 @@ data class SurveyMeta(
     val records: Int
 ) {
 
-    fun canLoadMore(loadedSize: Int) = loadedSize <= records
+    fun canLoadMore(loadedSize: Int) = loadedSize < records
 
     fun getPageNumberAndSize(loadedSize: Int): Pair<Int, Int> {
         val number = loadedSize / pageSize + 1
