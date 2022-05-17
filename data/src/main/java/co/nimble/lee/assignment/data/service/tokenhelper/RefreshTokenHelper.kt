@@ -1,4 +1,4 @@
-package co.nimble.lee.assignment.data.service.token_helper
+package co.nimble.lee.assignment.data.service.tokenhelper
 
 import co.nimble.lee.assignment.data.request.RefreshTokenRequest
 import co.nimble.lee.assignment.data.response.toTokenInfo
