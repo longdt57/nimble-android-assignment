@@ -79,7 +79,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.logoutEvent bindTo ::navigateToAuthentication
     }
 
-    private fun displayUser(userUiModel: UserUiModel) {
+    private fun displayUser(userUiModel: UserUiModel?) {
+        if (userUiModel == null) return
         Glide.with(requireContext())
             .load(userUiModel.avatarUrl)
             .apply(RequestOptions.circleCropTransform())
