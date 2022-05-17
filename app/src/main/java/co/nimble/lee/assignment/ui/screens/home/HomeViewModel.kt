@@ -68,7 +68,7 @@ class HomeViewModel @Inject constructor(
     fun getSurveys() {
         showLoading()
         execute {
-            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param())) {
+            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(shouldLoadDatabaseIfFail = true))) {
                 is UseCaseResult.Success -> {
                     _surveyUiModels.value = result.data.first.toSurveyUiModel()
                     surveyMeta = result.data.second
@@ -84,12 +84,13 @@ class HomeViewModel @Inject constructor(
         if (surveyMeta?.canLoadMore(loadedSize).orFalse().not()) return
         val pageInfo = surveyMeta!!.getPageNumberAndSize(loadedSize)
         execute {
-            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(pageInfo.first, pageInfo.second))) {
+            val param = GetSurveyUseCase.Param(pageInfo.first, pageInfo.second, shouldLoadDatabaseIfFail = false)
+            when (val result = getSurveyUseCase.invoke(parameters = param)) {
                 is UseCaseResult.Success -> {
                     _surveyUiModels.apply {
                         value = value.toMutableList().apply {
                             addAll(result.data.first.toSurveyUiModel())
-                        }.toSet().toList()
+                        }
                     }
                     surveyMeta = result.data.second
                     getUser()
