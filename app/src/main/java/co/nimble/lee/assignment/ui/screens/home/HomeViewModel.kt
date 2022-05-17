@@ -84,7 +84,8 @@ class HomeViewModel @Inject constructor(
         if (surveyMeta?.canLoadMore(loadedSize).orFalse().not()) return
         val pageInfo = surveyMeta!!.getPageNumberAndSize(loadedSize)
         execute {
-            when (val result = getSurveyUseCase.invoke(GetSurveyUseCase.Param(pageInfo.first, pageInfo.second, shouldLoadDatabaseIfFail = false))) {
+            val param = GetSurveyUseCase.Param(pageInfo.first, pageInfo.second, shouldLoadDatabaseIfFail = false)
+            when (val result = getSurveyUseCase.invoke(parameters = param)) {
                 is UseCaseResult.Success -> {
                     _surveyUiModels.apply {
                         value = value.toMutableList().apply {
