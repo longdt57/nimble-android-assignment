@@ -37,7 +37,7 @@ class TokenInterceptor @Inject constructor(
     }
 
     private fun handleValidAccessToken(request: Request, chain: Interceptor.Chain): Response {
-        val response = chain.proceed(appendTokenType(request, tokenType))
+        val response = chain.proceed(updateRequestHeaderAuthorization(request))
         return onValidAccessTokenResponse(request, chain, response)
     }
 
@@ -63,7 +63,7 @@ class TokenInterceptor @Inject constructor(
     private fun handleInvalidAccessToken(request: Request, chain: Interceptor.Chain): Response {
         // If refreshToken api is calling, await for it
         val newRequest: Request = refreshTokenAndUpdateRequest(request)
-        val newResponse = chain.proceed(appendTokenType(newRequest, tokenType))
+        val newResponse = chain.proceed(updateRequestHeaderAuthorization(newRequest))
         return onValidAccessTokenResponse(newRequest, chain, newResponse)
     }
 
@@ -75,14 +75,14 @@ class TokenInterceptor @Inject constructor(
             // If another request already executed this block and refresh token successfully.
             // Just return request with new access token
             if (request.hasNewAccessToken(localAccessToken)) {
-                return updateRequestWithNewAccessToken(request, localAccessToken)
+                return updateRequestHeaderAuthorization(request)
             }
 
             return if (AuthTokenUtils.isValidRefreshToken(localRefreshToken)) {
                 try {
                     runBlocking {
                         refreshTokenRepository.refreshAndSaveToken()
-                        updateRequestWithNewAccessToken(request, localAccessToken)
+                        updateRequestHeaderAuthorization(request)
                     }
                 } catch (e: Exception) {
                     // Todo should logout to prevent recall api
@@ -93,5 +93,13 @@ class TokenInterceptor @Inject constructor(
                 request
             }
         }
+    }
+
+    private fun updateRequestHeaderAuthorization(request: Request): Request {
+        val authorizationHeader = "$tokenType $localAccessToken"
+        return request.newBuilder()
+            .removeHeader(HEADER_AUTHORIZATION)
+            .addHeader(HEADER_AUTHORIZATION, authorizationHeader)
+            .build()
     }
 }
