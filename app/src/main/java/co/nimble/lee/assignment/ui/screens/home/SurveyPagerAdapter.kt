@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import co.nimble.lee.assignment.databinding.ItemSurveySliderBinding
-import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.SurveyUiModel
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
 import co.nimble.lee.assignment.ui.screens.ext.setOnSingleClickListener
 
 class SurveyPagerAdapter(
-    private val callback: ((SurveyUIModel, Int) -> Unit)
-) : ListAdapter<SurveyUIModel, SurveyPagerAdapter.SurveyViewHolder>(SurveyDiffUtil()) {
+    private val callback: ((SurveyUiModel, Int) -> Unit)
+) : ListAdapter<SurveyUiModel, SurveyPagerAdapter.SurveyViewHolder>(SurveyDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +27,7 @@ class SurveyPagerAdapter(
     fun needLoadMoreItem(position: Int) = itemCount - 2 == position
 
     class SurveyViewHolder(private val binding: ItemSurveySliderBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bindSurveyData(item: SurveyUIModel, position: Int, callback: (SurveyUIModel, Int) -> Unit) {
+        fun bindSurveyData(item: SurveyUiModel, position: Int, callback: (SurveyUiModel, Int) -> Unit) {
             binding.tvTitle.text = item.title
             binding.tvDescription.text = item.description
             binding.btnTakeSurvey.setOnSingleClickListener {
@@ -38,12 +38,12 @@ class SurveyPagerAdapter(
         }
     }
 
-    class SurveyDiffUtil : DiffUtil.ItemCallback<SurveyUIModel>() {
-        override fun areItemsTheSame(oldItem: SurveyUIModel, newItem: SurveyUIModel): Boolean {
+    class SurveyDiffUtil : DiffUtil.ItemCallback<SurveyUiModel>() {
+        override fun areItemsTheSame(oldItem: SurveyUiModel, newItem: SurveyUiModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SurveyUIModel, newItem: SurveyUIModel): Boolean {
+        override fun areContentsTheSame(oldItem: SurveyUiModel, newItem: SurveyUiModel): Boolean {
             return oldItem == newItem
         }
     }

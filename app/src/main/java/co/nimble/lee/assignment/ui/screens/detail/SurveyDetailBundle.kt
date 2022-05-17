@@ -1,10 +1,10 @@
 package co.nimble.lee.assignment.ui.screens.detail
 
 import android.os.Parcelable
-import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.SurveyUiModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SurveyDetailBundle(
-    val surveyUIModel: SurveyUIModel
+    val model: SurveyUiModel
 ) : Parcelable

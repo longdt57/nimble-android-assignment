@@ -8,7 +8,7 @@ import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.databinding.FragmentHomeBinding
 import co.nimble.lee.assignment.extension.provideViewModels
 import co.nimble.lee.assignment.lib.IsLoading
-import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.SurveyUiModel
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.ui.base.BaseFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
@@ -88,7 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             .into(binding.ivProfile)
     }
 
-    private fun displaySurveys(userUiModels: List<SurveyUIModel>) {
+    private fun displaySurveys(userUiModels: List<SurveyUiModel>) {
         binding.tvState.isVisible = userUiModels.isNullOrEmpty()
 
         // Avoid resubmit the same data when fragment recreate view
@@ -121,7 +121,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun openSurveyDetailScreen(survey: SurveyUIModel) {
+    private fun openSurveyDetailScreen(survey: SurveyUiModel) {
         viewModel.navigateToSurveyDetail(SurveyDetailBundle(survey))
     }
 

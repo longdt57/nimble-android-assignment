@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import co.nimble.lee.assignment.databinding.FragmentSurveyDetailBinding
 import co.nimble.lee.assignment.extension.provideNavArgs
 import co.nimble.lee.assignment.extension.provideViewModels
-import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.SurveyUiModel
 import co.nimble.lee.assignment.ui.base.BaseToolbarFragment
 import co.nimble.lee.assignment.ui.screens.MainNavigator
 import co.nimble.lee.assignment.ui.screens.ext.loadSurveyCoverImage
@@ -23,8 +23,8 @@ class SurveyDetailFragment : BaseToolbarFragment<FragmentSurveyDetailBinding>() 
 
     private val args: SurveyDetailFragmentArgs by provideNavArgs()
 
-    private val surveyUiModel: SurveyUIModel
-        get() = args.bundle.surveyUIModel
+    private val surveyUiModel: SurveyUiModel
+        get() = args.bundle.model
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSurveyDetailBinding
         get() = FragmentSurveyDetailBinding::inflate

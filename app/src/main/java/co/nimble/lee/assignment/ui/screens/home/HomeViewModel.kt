@@ -6,7 +6,7 @@ import co.nimble.lee.assignment.domain.usecase.GetSurveyUseCase
 import co.nimble.lee.assignment.domain.usecase.GetUserUseCase
 import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.domain.usecase.UseCaseResult
-import co.nimble.lee.assignment.model.SurveyUIModel
+import co.nimble.lee.assignment.model.SurveyUiModel
 import co.nimble.lee.assignment.model.UserUiModel
 import co.nimble.lee.assignment.model.toSurveyUiModel
 import co.nimble.lee.assignment.model.toUserUiModel
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 interface Output {
 
     var lastSelectedPosition: Int
-    val surveyUiModels: StateFlow<List<SurveyUIModel>>
+    val surveyUiModels: StateFlow<List<SurveyUiModel>>
     val userUiModel: SharedFlow<UserUiModel>
 
     fun navigateToSurveyDetail(bundle: SurveyDetailBundle)
@@ -40,8 +40,8 @@ class HomeViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers), Output {
 
-    private val _surveyUiModels = MutableStateFlow<List<SurveyUIModel>>(emptyList())
-    override val surveyUiModels: StateFlow<List<SurveyUIModel>>
+    private val _surveyUiModels = MutableStateFlow<List<SurveyUiModel>>(emptyList())
+    override val surveyUiModels: StateFlow<List<SurveyUiModel>>
         get() = _surveyUiModels
 
     private val _userUiModel = MutableSharedFlow<UserUiModel>()

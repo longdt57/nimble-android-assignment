@@ -5,14 +5,14 @@ import co.nimble.lee.assignment.domain.model.Survey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class SurveyUIModel(
+data class SurveyUiModel(
     val id: String,
     val title: String?,
     val description: String?,
     val coverImageUrl: String?
 ) : Parcelable
 
-fun Survey.toSurveyUiModel() = SurveyUIModel(
+fun Survey.toSurveyUiModel() = SurveyUiModel(
     id = id,
     title = title,
     description = description,
