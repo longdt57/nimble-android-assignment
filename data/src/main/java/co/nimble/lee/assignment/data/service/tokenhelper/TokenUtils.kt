@@ -16,23 +16,6 @@ internal object AuthTokenUtils {
 internal const val HEADER_AUTHORIZATION = "Authorization"
 internal const val HTTP_ERROR_CODE_UNAUTHORIZED = 401
 
-internal fun appendTokenType(request: Request, tokenType: String): Request {
-    var accessToken = request.getHeaderAuthorization()
-    return if (accessToken == null || accessToken.startsWith(tokenType))
-        request
-    else {
-        accessToken = "$tokenType $accessToken"
-        updateRequestWithNewAccessToken(request, accessToken)
-    }
-}
-
-internal fun updateRequestWithNewAccessToken(request: Request, newAccessToken: String): Request {
-    return request.newBuilder()
-        .removeHeader(HEADER_AUTHORIZATION)
-        .addHeader(HEADER_AUTHORIZATION, newAccessToken)
-        .build()
-}
-
 internal fun Request.getHeaderAuthorization(): String? = header(HEADER_AUTHORIZATION)
 
 internal fun Response.isUnauthorized() = code == HTTP_ERROR_CODE_UNAUTHORIZED
