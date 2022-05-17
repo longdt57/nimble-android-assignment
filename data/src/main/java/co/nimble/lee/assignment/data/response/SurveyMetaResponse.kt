@@ -7,17 +7,14 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class SurveyMetaResponse(
     @Json(name = "page")
-    val page: Int = PAGE_NUMBER,
+    val page: Int,
     @Json(name = "page_size")
-    val pageSize: Int = PAGE_SIZE,
+    val pageSize: Int,
     @Json(name = "pages")
-    val pages: Int = PAGE_NUMBER,
+    val pages: Int,
     @Json(name = "records")
-    val records: Int = PAGE_SIZE
+    val records: Int
 )
-
-const val PAGE_NUMBER = 1
-const val PAGE_SIZE = 5
 
 fun SurveyMetaResponse.toSurveyMeta() = SurveyMeta(
     page = page,
