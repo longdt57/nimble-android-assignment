@@ -27,7 +27,7 @@ interface Output {
 
     var lastSelectedPosition: Int
     val surveyUiModels: StateFlow<List<SurveyUiModel>>
-    val userUiModel: SharedFlow<UserUiModel>
+    val userUiModel: StateFlow<UserUiModel?>
 
     fun navigateToSurveyDetail(bundle: SurveyDetailBundle)
 }
@@ -44,8 +44,8 @@ class HomeViewModel @Inject constructor(
     override val surveyUiModels: StateFlow<List<SurveyUiModel>>
         get() = _surveyUiModels
 
-    private val _userUiModel = MutableSharedFlow<UserUiModel>()
-    override val userUiModel: SharedFlow<UserUiModel>
+    private val _userUiModel = MutableStateFlow<UserUiModel?>(null)
+    override val userUiModel: StateFlow<UserUiModel?>
         get() = _userUiModel
 
     private val _logoutEvent = MutableSharedFlow<Unit>()
@@ -93,10 +93,10 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                     surveyMeta = result.data.second
-                    getUser()
                 }
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
+            getUser()
         }
     }
 
