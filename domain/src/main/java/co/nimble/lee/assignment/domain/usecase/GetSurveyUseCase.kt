@@ -16,7 +16,7 @@ class GetSurveyUseCase @Inject constructor(private val surveyRepository: SurveyR
                     surveyRepository.saveToDatabase(first)
                 }
         } catch (exception: Exception) {
-            if (param.isFirstPage()) Pair(surveyRepository.getSurveysLocal(), null)
+            if (param.isFirstPage() && param.shouldLoadDatabaseIfFail) Pair(surveyRepository.getSurveysLocal(), null)
             else throw exception
         }
     }
@@ -29,7 +29,8 @@ class GetSurveyUseCase @Inject constructor(private val surveyRepository: SurveyR
 
     class Param(
         val pageNumber: Int = 1,
-        val pageSize: Int = 5
+        val pageSize: Int = 5,
+        val shouldLoadDatabaseIfFail: Boolean
     ) {
         fun isFirstPage(): Boolean = pageNumber == 1
     }
