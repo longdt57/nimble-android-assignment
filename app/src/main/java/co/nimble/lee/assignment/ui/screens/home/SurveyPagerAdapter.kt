@@ -34,7 +34,7 @@ class SurveyPagerAdapter(
                 callback.invoke(item, position)
             }
 
-            binding.ivCover.loadSurveyCoverImage(item.coverImageUrl.orEmpty())
+            binding.ivCover.loadSurveyCoverImage(item.getUrlHighResolution())
         }
     }
 

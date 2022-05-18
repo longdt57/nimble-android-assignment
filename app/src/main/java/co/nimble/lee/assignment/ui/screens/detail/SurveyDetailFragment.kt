@@ -32,7 +32,7 @@ class SurveyDetailFragment : BaseToolbarFragment<FragmentSurveyDetailBinding>() 
     override fun setupView() {
         binding.tvTitle.text = surveyUiModel.title
         binding.tvDescription.text = surveyUiModel.description
-        binding.ivCover.loadSurveyCoverImage(surveyUiModel.coverImageUrl.orEmpty())
+        binding.ivCover.loadSurveyCoverImage(surveyUiModel.getUrlHighResolution())
     }
 
     override fun bindViewEvents() {
