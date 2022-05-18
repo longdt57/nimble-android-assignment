@@ -183,6 +183,7 @@ dependencies {
     testImplementation("androidx.test.ext:junit-ktx:${Versions.TEST_JUNIT_ANDROIDX_EXT_VERSION}")
     testImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN_REFLECT_VERSION}")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLINX_COROUTINES_VERSION}")
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
