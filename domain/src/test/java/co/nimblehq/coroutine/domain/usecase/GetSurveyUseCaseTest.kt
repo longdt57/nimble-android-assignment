@@ -33,7 +33,7 @@ class GetSurveyUseCaseTest {
         surveyType = "Restaurant"
     )
 
-    private val surveyMeta = SurveyMeta(1, 1, 1, 1)
+    private val surveyMeta = SurveyMeta(1, 5, 4, 20)
 
     @Before
     fun setup() {

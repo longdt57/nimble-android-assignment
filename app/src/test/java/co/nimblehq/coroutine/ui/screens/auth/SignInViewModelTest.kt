@@ -68,7 +68,7 @@ class SignInViewModelTest {
         coEvery { mockUseCase.invoke(param) } returns UseCaseResult.Error(Throwable(message = errorMessage))
 
         val result = mutableListOf<String>()
-        val job = launch { viewModel.error.toList(result) shouldBe Unit }
+        val job = launch { viewModel.error.toList(result)}
         viewModel.signInWithEmail(param.email, param.password)
 
         result.size shouldBe 1
