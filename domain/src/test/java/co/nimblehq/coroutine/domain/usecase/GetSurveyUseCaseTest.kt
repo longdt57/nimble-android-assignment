@@ -45,9 +45,9 @@ class GetSurveyUseCaseTest {
     fun `When calling request successfully, it returns success response and save to Local`() = runBlockingTest {
         val expected = Pair(listOf(survey), surveyMeta)
         coEvery { mockRepository.getSurveysRemote(any(), any()) } returns expected
-        mockSuccess()
+        mockLocalSuccess()
 
-        usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {
+        usecase.invoke(GetSurveyUseCase.Param(1, 1, false)).run {
             (this as UseCaseResult.Success).data shouldBe expected
         }
 
@@ -60,9 +60,9 @@ class GetSurveyUseCaseTest {
     fun `When calling request successfully and pageNumber 1, it clears Database`() = runBlockingTest {
         val expected = Pair(listOf(survey), surveyMeta)
         coEvery { mockRepository.getSurveysRemote(any(), any()) } returns expected
-        mockSuccess()
+        mockLocalSuccess()
 
-        usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {
+        usecase.invoke(GetSurveyUseCase.Param(1, 1, true)).run {
             (this as UseCaseResult.Success).data shouldBe expected
         }
 
@@ -71,7 +71,22 @@ class GetSurveyUseCaseTest {
         }
     }
 
-    private fun mockSuccess() {
+    @Test
+    fun `When calling request fail and pageNumber 1, it get surveys from Database`() = runBlockingTest {
+        val expected = Pair(listOf(survey), null)
+        coEvery { mockRepository.getSurveysRemote(any(), any()) } throws Exception()
+        coEvery { mockRepository.getSurveysLocal() } returns expected.first
+
+        usecase.invoke(GetSurveyUseCase.Param(1, 1, true)).run {
+            (this as UseCaseResult.Success).data shouldBe expected
+        }
+
+        io.mockk.verify(exactly = 1) {
+            runBlockingTest { mockRepository.getSurveysLocal() }
+        }
+    }
+
+    private fun mockLocalSuccess() {
         coEvery { mockRepository.clearSurveyDatabase() } returns Unit
         coEvery { mockRepository.saveToDatabase(listOf(survey)) } returns Unit
     }
@@ -82,7 +97,7 @@ class GetSurveyUseCaseTest {
         coEvery { mockRepository.getSurveysRemote(any(), any()) } throws expected
         coEvery { mockRepository.getSurveysLocal() } throws expected
 
-        usecase.invoke(GetSurveyUseCase.Param(1, 1)).run {
+        usecase.invoke(GetSurveyUseCase.Param(1, 1, true)).run {
             (this as UseCaseResult.Error).exception shouldBe expected
         }
     }
