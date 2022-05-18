@@ -96,7 +96,6 @@ class HomeViewModel @Inject constructor(
                 }
                 is UseCaseResult.Error -> _error.emit(result.exception.message.orEmpty())
             }
-            getUser()
         }
     }
 

@@ -39,7 +39,7 @@ class ForgotPasswordViewModelTest {
     }
 
     @Test
-    fun `When calling sign in, it returns success response`() = runTest(coroutineTestRule.providerImplTest.io) {
+    fun `When calling reqeust, it returns success response`() = runTest(coroutineTestRule.providerImplTest.io) {
         val successMessage = Message("If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes.")
         coEvery { mockUseCase.invoke(param) } returns UseCaseResult.Success(successMessage)
 
@@ -53,12 +53,12 @@ class ForgotPasswordViewModelTest {
     }
 
     @Test
-    fun `When calling sign in, it returns fail response`() = runTest(coroutineTestRule.providerImplTest.io) {
+    fun `When calling request, it returns fail response`() = runTest(coroutineTestRule.providerImplTest.io) {
         val errorMessage = "Lee handsome"
         coEvery { mockUseCase.invoke(param) } returns UseCaseResult.Error(Throwable(message = errorMessage))
 
         val result = mutableListOf<String>()
-        val job = launch { viewModel.error.toList(result) shouldBe Unit }
+        val job = launch { viewModel.error.toList(result)}
         viewModel.forgotPassword(param.email)
 
         result.size shouldBe 1
