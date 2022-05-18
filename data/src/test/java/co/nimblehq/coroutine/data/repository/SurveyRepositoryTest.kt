@@ -41,7 +41,7 @@ class SurveyRepositoryTest {
         )
     )
 
-    private val surveyMeta = SurveyMetaResponse()
+    private val surveyMeta = SurveyMetaResponse(1, 5, 4, 20)
 
     @Before
     fun setup() {
