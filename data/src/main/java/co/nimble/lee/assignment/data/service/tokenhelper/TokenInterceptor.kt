@@ -1,16 +1,22 @@
 package co.nimble.lee.assignment.data.service.tokenhelper
 
+import android.content.Context
+import android.content.Intent
 import co.nimble.lee.assignment.data.storage.local.TokenStorage
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class TokenInterceptor @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val storage: TokenStorage,
-    private val refreshTokenRepository: RefreshTokenHelper
+    private val refreshTokenRepository: RefreshTokenHelper,
+    @LogoutServiceIntent private val logoutServiceIntent: Intent
 ) : Interceptor {
 
     private val tokenType: String
@@ -85,14 +91,21 @@ class TokenInterceptor @Inject constructor(
                         updateRequestHeaderAuthorization(request)
                     }
                 } catch (e: Exception) {
-                    // Todo should logout to prevent recall api
+                    if (isInvalidRefreshTokenException(e)) {
+                        logout()
+                    }
                     request
                 }
             } else {
-                // Todo should logout to prevent recall api
+                logout()
                 request
             }
         }
+    }
+
+    private fun isInvalidRefreshTokenException(e: Exception): Boolean {
+        if (e !is HttpException) return false
+        return e.code() in listOf(HTTP_ERROR_CODE_UNAUTHORIZED, HTTP_BAD_REQUEST)
     }
 
     private fun updateRequestHeaderAuthorization(request: Request): Request {
@@ -101,5 +114,9 @@ class TokenInterceptor @Inject constructor(
             .removeHeader(HEADER_AUTHORIZATION)
             .addHeader(HEADER_AUTHORIZATION, authorizationHeader)
             .build()
+    }
+
+    private fun logout() {
+        context.startService(logoutServiceIntent)
     }
 }
