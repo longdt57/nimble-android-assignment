@@ -21,7 +21,7 @@ internal fun Request.getHeaderAuthorization(): String? = header(HEADER_AUTHORIZA
 
 internal fun Response.isUnauthorized() = code == HTTP_ERROR_CODE_UNAUTHORIZED
 
-internal fun Request.isLocalAccessTokenUpdated(localAccessToken: String): Boolean {
+internal fun Request.hasNewAccessToken(localAccessToken: String): Boolean {
     return getHeaderAuthorization().orEmpty().contains(localAccessToken).not()
 }
 

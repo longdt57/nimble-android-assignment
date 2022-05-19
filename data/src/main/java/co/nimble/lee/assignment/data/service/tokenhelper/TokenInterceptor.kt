@@ -82,7 +82,7 @@ class TokenInterceptor @Inject constructor(
         synchronized(this) {
             // If another request already executed this block and refresh token successfully.
             // Just return request with new access token
-            if (storage.isLocalAccessTokenValid() && request.isLocalAccessTokenUpdated(localAccessToken)) {
+            if (storage.isLocalAccessTokenValid() && request.hasNewAccessToken(localAccessToken)) {
                 return updateRequestHeaderAuthorization(request)
             }
 
