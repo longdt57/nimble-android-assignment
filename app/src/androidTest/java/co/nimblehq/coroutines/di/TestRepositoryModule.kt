@@ -5,21 +5,22 @@ import co.nimble.lee.assignment.domain.repository.LogoutRepository
 import co.nimble.lee.assignment.domain.repository.OAuthRepository
 import co.nimble.lee.assignment.domain.repository.SurveyRepository
 import co.nimble.lee.assignment.domain.repository.UserRepository
+import co.nimblehq.coroutines.mockrepository.MockOAuthRepository
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import io.mockk.mockk
 
 @Module
 @TestInstallIn(
-    components = [ViewModelComponent::class],
+    components = [SingletonComponent::class],
     replaces = [RepositoryModule::class]
 )
 class TestRepositoryModule {
 
     @Provides
-    fun provideOAuthRepository(): OAuthRepository = mockk()
+    fun provideOAuthRepository(): OAuthRepository = MockOAuthRepository()
 
     @Provides
     fun provideUserRepository(): UserRepository = mockk()

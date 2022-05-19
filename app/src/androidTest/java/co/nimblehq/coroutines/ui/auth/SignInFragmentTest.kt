@@ -1,22 +1,20 @@
 package co.nimblehq.coroutines.ui.auth
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import co.nimble.lee.assignment.R
-import co.nimble.lee.assignment.databinding.FragmentSignInBinding
-import co.nimble.lee.assignment.ui.screens.auth.AuthNavigator
 import co.nimble.lee.assignment.ui.screens.auth.SignInFragment
-import co.nimblehq.coroutines.BaseFragmentTest
+import co.nimblehq.coroutines.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -25,10 +23,12 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class SignInFragmentTest : BaseFragmentTest<SignInFragment, FragmentSignInBinding>() {
+class SignInFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
+
+    var context: Context = ApplicationProvider.getApplicationContext()
 
     @Before
     fun init() {
@@ -37,10 +37,7 @@ class SignInFragmentTest : BaseFragmentTest<SignInFragment, FragmentSignInBindin
     }
 
     private fun launchFragment() {
-        launchFragmentInHiltContainer<SignInFragment>(
-            onInstantiate = {}
-        ) {
-            fragment = this
+        launchFragmentInHiltContainer<SignInFragment>{
         }
     }
 
@@ -48,19 +45,18 @@ class SignInFragmentTest : BaseFragmentTest<SignInFragment, FragmentSignInBindin
     fun validateInitialUI() {
         onView(withId(R.id.edtEmail))
             .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withHint(fragment.getString(R.string.label_email))))
+            .check(matches(withHint(context.getString(R.string.label_email))))
 
         onView(withId(R.id.edtPassword))
             .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withHint(fragment.getString(R.string.label_password))))
+            .check(matches(withHint(context.getString(R.string.label_password))))
 
         onView(withId(R.id.tvForgot))
             .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withText(fragment.getString(R.string.label_password))))
+            .check(matches(withText(context.getString(R.string.label_sign_in_forgot))))
 
         onView(withId(R.id.btnLogin))
             .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withText(fragment.getString(R.string.label_login))))
-            .check(matches(isNotEnabled()))
+            .check(matches(withText(context.getString(R.string.label_login))))
     }
 }

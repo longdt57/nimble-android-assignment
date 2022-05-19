@@ -50,7 +50,7 @@ object Versions {
     const val DETEKT_VERSION = "1.20.0"
 
     // Instrument testing libraries
-    const val TEST_INSTRUMENT_ESPRESSO = "3.4.0"
+    const val TEST_INSTRUMENT_ESPRESSO = "3.3.0"
 
     // Testing libraries
     const val TEST_JUNIT_ANDROIDX_EXT_VERSION = "1.1.2"
