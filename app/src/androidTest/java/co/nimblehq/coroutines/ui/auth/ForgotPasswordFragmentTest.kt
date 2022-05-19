@@ -13,7 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import co.nimble.lee.assignment.R
-import co.nimble.lee.assignment.ui.screens.auth.SignInFragment
+import co.nimble.lee.assignment.ui.screens.auth.ForgotPasswordFragment
 import co.nimblehq.coroutines.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -26,7 +26,7 @@ import org.junit.runner.RunWith
 @MediumTest
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class SignInFragmentTest {
+class ForgotPasswordFragmentTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
@@ -40,30 +40,22 @@ class SignInFragmentTest {
     }
 
     private fun launchFragment() {
-        launchFragmentInHiltContainer<SignInFragment> {
-        }
+        launchFragmentInHiltContainer<ForgotPasswordFragment> {}
     }
 
     @Test
     fun validateInitialUI() {
-        onView(withId(R.id.ivLogo))
+        onView(withId(R.id.tvDescription))
             .check(matches(ViewMatchers.isDisplayed()))
+            .check(matches(withText(context.getString(R.string.forgot_password_description))))
 
         onView(withId(R.id.edtEmail))
             .check(matches(ViewMatchers.isDisplayed()))
             .check(matches(withHint(context.getString(R.string.label_email))))
 
-        onView(withId(R.id.edtPassword))
+        onView(withId(R.id.btnDone))
             .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withHint(context.getString(R.string.label_password))))
-
-        onView(withId(R.id.tvForgot))
-            .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withText(context.getString(R.string.label_sign_in_forgot))))
-
-        onView(withId(R.id.btnLogin))
-            .check(matches(ViewMatchers.isDisplayed()))
-            .check(matches(withText(context.getString(R.string.label_login))))
+            .check(matches(withText(context.getString(R.string.reset))))
             .check(matches(not(isEnabled())))
     }
 
@@ -71,10 +63,8 @@ class SignInFragmentTest {
     fun checkLoginButtonIsEnabled() {
         onView(withId(R.id.edtEmail))
             .perform(replaceText("dev@nimblehq.co"))
-        onView(withId(R.id.edtPassword))
-            .perform(replaceText("11111111"))
 
-        onView(withId(R.id.btnLogin))
+        onView(withId(R.id.btnDone))
             .check(matches(isEnabled()))
     }
 }
