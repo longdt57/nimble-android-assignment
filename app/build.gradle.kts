@@ -53,6 +53,8 @@ android {
         targetSdk = Versions.ANDROID_TARGET_SDK_VERSION
         versionCode = Versions.ANDROID_VERSION_CODE
         versionName = Versions.ANDROID_VERSION_NAME
+
+        testInstrumentationRunner = "co.nimblehq.coroutines.NimbleTestRunner"
     }
 
     buildTypes {
@@ -93,6 +95,9 @@ android {
     sourceSets["test"].resources {
         srcDir("src/test/resources")
     }
+    sourceSets["androidTest"].resources {
+        srcDir("src/test/resources")
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -130,6 +135,9 @@ android {
 
 kapt {
     correctErrorTypes = true
+    arguments {
+        arg("room.incremental", "true")
+    }
 }
 
 dependencies {
@@ -187,4 +195,15 @@ dependencies {
 
     kaptTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
     testAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+
+    addTestImplementationBaseLib("androidTestImplementation")
+    androidTestImplementation("androidx.test.espresso:espresso-core:${Versions.TEST_INSTRUMENT_ESPRESSO}")
+    androidTestImplementation("androidx.test:core:${Versions.ANDROIDX_CORE_KTX_VERSION}")
+    androidTestImplementation("androidx.test.ext:junit-ktx:${Versions.TEST_JUNIT_ANDROIDX_EXT_VERSION}")
+    androidTestImplementation("androidx.test:rules:${Versions.TEST_RUNNER_VERSION}")
+    androidTestImplementation("androidx.test:runner:${Versions.TEST_RUNNER_VERSION}")
+
+    androidTestImplementation("com.google.dagger:hilt-android-testing:${Versions.HILT_VERSION}")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:${Versions.HILT_VERSION}")
 }

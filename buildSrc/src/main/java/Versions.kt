@@ -49,13 +49,16 @@ object Versions {
     // Configuration
     const val DETEKT_VERSION = "1.20.0"
 
+    // Instrument testing libraries
+    const val TEST_INSTRUMENT_ESPRESSO = "3.4.0"
+
     // Testing libraries
     const val TEST_JUNIT_ANDROIDX_EXT_VERSION = "1.1.2"
     const val TEST_JUNIT_VERSION = "4.13.2"
     const val TEST_KOTEST_VERSION = "4.6.3"
     const val TEST_MOCKK_VERSION = "1.10.6"
     const val TEST_ROBOLECTRIC_VERSION = "4.3.1"
-    const val TEST_RUNNER_VERSION = "1.3.0"
+    const val TEST_RUNNER_VERSION = "1.4.0"
     const val TEST_MOCKITO = "4.5.1"
     const val TEST_MOCKITO_KOTLIN = "4.0.0"
 }

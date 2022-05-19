@@ -43,10 +43,10 @@ fun DependencyHandler.addRoom() {
     add("kapt", "androidx.room:room-compiler:${Versions.ROOM_VERSION}")
 }
 
-fun DependencyHandler.addTestImplementationBaseLib() {
-    add("testImplementation", "junit:junit:${Versions.TEST_JUNIT_VERSION}")
-    add("testImplementation", "io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
-    add("testImplementation", "io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
-    add("testImplementation", "org.mockito:mockito-core:${Versions.TEST_MOCKITO}")
-    add("testImplementation", "org.mockito.kotlin:mockito-kotlin:${Versions.TEST_MOCKITO_KOTLIN}")
+fun DependencyHandler.addTestImplementationBaseLib(configuration: String = "testImplementation") {
+    add(configuration, "junit:junit:${Versions.TEST_JUNIT_VERSION}")
+    add(configuration, "io.mockk:mockk:${Versions.TEST_MOCKK_VERSION}")
+    add(configuration, "io.kotest:kotest-assertions-core:${Versions.TEST_KOTEST_VERSION}")
+    add(configuration, "org.mockito:mockito-core:${Versions.TEST_MOCKITO}")
+    add(configuration, "org.mockito.kotlin:mockito-kotlin:${Versions.TEST_MOCKITO_KOTLIN}")
 }
