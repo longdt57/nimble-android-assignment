@@ -69,8 +69,7 @@ class TokenInterceptor @Inject constructor(
     private fun handleInvalidAccessToken(request: Request, chain: Interceptor.Chain): Response {
         // If refreshToken api is calling, await for it
         val newRequest: Request = refreshTokenAndUpdateRequest(request)
-        val newResponse = chain.proceed(updateRequestHeaderAuthorization(newRequest))
-        return onValidAccessTokenResponse(newRequest, chain, newResponse)
+        return chain.proceed(updateRequestHeaderAuthorization(newRequest))
     }
 
     /**
