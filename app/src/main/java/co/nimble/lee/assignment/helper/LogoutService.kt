@@ -24,17 +24,16 @@ class LogoutService @Inject constructor(
         if (job.isActive.not()) {
             scope.launch {
                 logOutUseCase.invoke(Unit)
-
-                openLoginScreen()
-                stopSelf()
             }
+            openLoginScreen()
+            stopSelf()
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
     private fun openLoginScreen() {
         val intent = Intent(this, AuthenticationActivity::class.java).apply {
-            addFlags(
+            this.addFlags(
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or
                     Intent.FLAG_ACTIVITY_CLEAR_TASK or
                     Intent.FLAG_ACTIVITY_NEW_TASK

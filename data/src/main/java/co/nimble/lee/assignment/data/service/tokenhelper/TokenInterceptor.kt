@@ -30,33 +30,36 @@ class TokenInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
-            val request = chain.request()
+            val request = updateRequestHeaderAuthorization(chain.request())
 
-            return if (storage.isLocalAccessTokenValid()) {
+            val response = if (storage.isLocalAccessTokenValid()) {
                 handleValidAccessToken(request, chain)
             } else {
                 handleInvalidAccessToken(request, chain)
             }
+
+            // Not Call API if token is invalid
+            return response ?: throw IllegalArgumentException("Invalid Token")
         } catch (t: Throwable) {
             throw IOException("SafeGuarded when requesting ${chain.request().url}", t)
         }
     }
 
-    private fun handleValidAccessToken(request: Request, chain: Interceptor.Chain): Response {
-        val response = chain.proceed(updateRequestHeaderAuthorization(request))
+    private fun handleValidAccessToken(request: Request, chain: Interceptor.Chain): Response? {
+        val response = chain.proceed(request)
         return onValidAccessTokenResponse(request, chain, response)
     }
 
     /**
      * Handle Response.
-     * Check if error 401, refresh token
+     * Check if error isUnauthorized, refresh token
      * Else return response
      */
     private fun onValidAccessTokenResponse(
         request: Request,
         chain: Interceptor.Chain,
         response: Response,
-    ): Response {
+    ): Response? {
         return when {
             response.isUnauthorized() -> handleInvalidAccessToken(request, chain)
             else -> response
@@ -66,20 +69,20 @@ class TokenInterceptor @Inject constructor(
     /**
      * Refresh Token, then recall the api
      */
-    private fun handleInvalidAccessToken(request: Request, chain: Interceptor.Chain): Response {
+    private fun handleInvalidAccessToken(request: Request, chain: Interceptor.Chain): Response? {
         // If refreshToken api is calling, await for it
-        val newRequest: Request = refreshTokenAndUpdateRequest(request)
-        return chain.proceed(updateRequestHeaderAuthorization(newRequest))
+        val newRequest: Request = refreshTokenAndUpdateRequest(request) ?: return null
+        return chain.proceed(newRequest)
     }
 
     /**
      * Refresh Token. Log out if refresh token fail
      */
-    private fun refreshTokenAndUpdateRequest(request: Request): Request {
+    private fun refreshTokenAndUpdateRequest(request: Request): Request? {
         synchronized(this) {
             // If another request already executed this block and refresh token successfully.
             // Just return request with new access token
-            if (request.hasNewAccessToken(localAccessToken)) {
+            if (storage.isLocalAccessTokenValid() && request.isLocalAccessTokenUpdated(localAccessToken)) {
                 return updateRequestHeaderAuthorization(request)
             }
 
@@ -93,11 +96,11 @@ class TokenInterceptor @Inject constructor(
                     if (isInvalidRefreshTokenException(e)) {
                         logout()
                     }
-                    request
+                    null
                 }
             } else {
                 logout()
-                request
+                null
             }
         }
     }
