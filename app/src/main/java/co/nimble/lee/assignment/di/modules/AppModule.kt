@@ -2,7 +2,9 @@ package co.nimble.lee.assignment.di.modules
 
 import android.content.Context
 import android.content.Intent
+import co.nimble.lee.assignment.data.repository.LogoutRepositoryImpl
 import co.nimble.lee.assignment.data.service.tokenhelper.LogoutServiceIntent
+import co.nimble.lee.assignment.domain.repository.LogoutRepository
 import co.nimble.lee.assignment.helper.LogoutService
 import co.nimble.lee.assignment.util.DispatchersProvider
 import co.nimble.lee.assignment.util.DispatchersProviderImpl
@@ -19,6 +21,11 @@ class AppModule {
     fun provideDispatchersProvider(): DispatchersProvider {
         return DispatchersProviderImpl()
     }
+
+    @Provides
+    fun provideLogoutRepository(
+        repoImpl: LogoutRepositoryImpl
+    ): LogoutRepository = repoImpl
 
     @Provides
     @LogoutServiceIntent

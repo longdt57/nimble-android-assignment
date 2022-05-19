@@ -16,8 +16,8 @@
 
         <activity
             android:name=".ui.screens.splash.SplashActivity"
-            android:theme="@style/AppTheme.Authentication"
             android:exported="true"
+            android:theme="@style/AppTheme.Authentication"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +35,10 @@
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.Authentication"
             android:windowSoftInputMode="adjustNothing" />
+
+        <service
+            android:name=".helper.LogoutService"
+            android:exported="false" />
     </application>
 
 </manifest>

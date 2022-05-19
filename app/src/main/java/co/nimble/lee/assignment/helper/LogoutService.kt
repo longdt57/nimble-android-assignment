@@ -5,24 +5,26 @@ import android.content.Intent
 import android.os.IBinder
 import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
 import co.nimble.lee.assignment.ui.screens.auth.AuthenticationActivity
+import co.nimble.lee.assignment.ui.screens.ext.orFalse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LogoutService @Inject constructor(
-    private val logOutUseCase: LogOutUseCase
-) : Service() {
+class LogoutService : Service() {
 
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.IO + job)
+    @Inject
+    lateinit var logOutUseCase: LogOutUseCase
+
+    private var job: Job? = null
+    private val scope = CoroutineScope(Dispatchers.IO)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (job.isActive.not()) {
-            scope.launch {
+        if (job?.isActive.orFalse().not()) {
+            job = scope.launch {
                 logOutUseCase.invoke(Unit)
             }
             openLoginScreen()
@@ -47,7 +49,7 @@ class LogoutService @Inject constructor(
     }
 
     override fun onDestroy() {
-        job.complete()
+        job = null
         super.onDestroy()
     }
 }
