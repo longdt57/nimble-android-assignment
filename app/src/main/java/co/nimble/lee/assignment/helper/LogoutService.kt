@@ -3,7 +3,7 @@ package co.nimble.lee.assignment.helper
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import co.nimble.lee.assignment.domain.usecase.LogOutUseCase
+import co.nimble.lee.assignment.domain.repository.KickOutRepository
 import co.nimble.lee.assignment.ui.screens.auth.AuthenticationActivity
 import co.nimble.lee.assignment.ui.screens.ext.orFalse
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class LogoutService : Service() {
 
     @Inject
-    lateinit var logOutUseCase: LogOutUseCase
+    lateinit var kickOutRepository: KickOutRepository
 
     private var job: Job? = null
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -25,7 +25,7 @@ class LogoutService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (job?.isActive.orFalse().not()) {
             job = scope.launch {
-                logOutUseCase.invoke(Unit)
+                kickOutRepository.kickOut()
             }
             openLoginScreen()
             stopSelf()
