@@ -31,17 +31,20 @@ class TokenInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
             val request = updateRequestHeaderAuthorization(chain.request())
-
-            val response = if (storage.isLocalAccessTokenValid()) {
-                handleValidAccessToken(request, chain)
-            } else {
-                handleInvalidAccessToken(request, chain)
-            }
+            val response = getResponse(request, chain)
 
             // Not Call API if token is invalid
             return response ?: throw IllegalArgumentException("Invalid Token")
         } catch (t: Throwable) {
             throw IOException("SafeGuarded when requesting ${chain.request().url}", t)
+        }
+    }
+
+    private fun getResponse(request: Request, chain: Interceptor.Chain): Response? {
+        return if (storage.isLocalAccessTokenValid()) {
+            handleValidAccessToken(request, chain)
+        } else {
+            handleInvalidAccessToken(request, chain)
         }
     }
 
@@ -82,27 +85,35 @@ class TokenInterceptor @Inject constructor(
         synchronized(this) {
             // If another request already executed this block and refresh token successfully.
             // Just return request with new access token
-            if (storage.isLocalAccessTokenValid() && request.hasNewAccessToken(localAccessToken)) {
-                return updateRequestHeaderAuthorization(request)
-            }
 
-            return if (AuthTokenUtils.isValidRefreshToken(localRefreshToken)) {
-                try {
-                    runBlocking {
-                        refreshTokenRepository.refreshAndSaveToken()
-                        updateRequestHeaderAuthorization(request)
-                    }
-                } catch (e: Exception) {
-                    if (isInvalidRefreshTokenException(e)) {
-                        logout()
-                    }
+            return when {
+                isLocalAccessTokenUpdated(request) -> updateRequestHeaderAuthorization(request)
+                AuthTokenUtils.isValidRefreshToken(localRefreshToken).not() -> {
+                    kickOut()
                     null
                 }
-            } else {
-                logout()
-                null
+                refreshToken() -> updateRequestHeaderAuthorization(request)
+                else -> null
             }
         }
+    }
+
+    private fun refreshToken(): Boolean {
+        return try {
+            runBlocking {
+                refreshTokenRepository.refreshAndSaveToken()
+            }
+            true
+        } catch (e: Exception) {
+            if (isInvalidRefreshTokenException(e)) {
+                kickOut()
+            }
+            false
+        }
+    }
+
+    private fun isLocalAccessTokenUpdated(request: Request): Boolean {
+        return storage.isLocalAccessTokenValid() && request.hasNewAccessToken(localAccessToken)
     }
 
     private fun isInvalidRefreshTokenException(e: Exception): Boolean {
@@ -118,7 +129,7 @@ class TokenInterceptor @Inject constructor(
             .build()
     }
 
-    private fun logout() {
+    private fun kickOut() {
         context.startService(logoutServiceIntent)
     }
 }
