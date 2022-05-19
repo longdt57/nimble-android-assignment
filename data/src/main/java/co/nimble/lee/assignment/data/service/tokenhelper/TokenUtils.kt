@@ -15,6 +15,7 @@ internal object AuthTokenUtils {
 
 internal const val HEADER_AUTHORIZATION = "Authorization"
 internal const val HTTP_ERROR_CODE_UNAUTHORIZED = 401
+internal const val HTTP_BAD_REQUEST = 400
 
 internal fun Request.getHeaderAuthorization(): String? = header(HEADER_AUTHORIZATION)
 

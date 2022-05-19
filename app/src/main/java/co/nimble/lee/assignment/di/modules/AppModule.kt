@@ -1,10 +1,17 @@
 package co.nimble.lee.assignment.di.modules
 
+import android.content.Context
+import android.content.Intent
+import co.nimble.lee.assignment.data.repository.KickOutRepositoryImpl
+import co.nimble.lee.assignment.data.service.tokenhelper.LogoutServiceIntent
+import co.nimble.lee.assignment.domain.repository.KickOutRepository
+import co.nimble.lee.assignment.helper.LogoutService
 import co.nimble.lee.assignment.util.DispatchersProvider
 import co.nimble.lee.assignment.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
@@ -14,4 +21,15 @@ class AppModule {
     fun provideDispatchersProvider(): DispatchersProvider {
         return DispatchersProviderImpl()
     }
+
+    @Provides
+    fun provideLogoutRepository(
+        repoImpl: KickOutRepositoryImpl
+    ): KickOutRepository = repoImpl
+
+    @Provides
+    @LogoutServiceIntent
+    fun provideLogoutServiceIntent(
+        @ApplicationContext context: Context
+    ): Intent = Intent(context, LogoutService::class.java)
 }
