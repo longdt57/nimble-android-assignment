@@ -3,7 +3,7 @@ package co.nimblehq.coroutines.ui.home
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.filters.MediumTest
+import androidx.test.filters.LargeTest
 import co.nimble.lee.assignment.ui.screens.home.HomeFragment
 import co.nimblehq.coroutines.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -13,7 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
 class HomeFragmentTest {
@@ -36,6 +36,7 @@ class HomeFragmentTest {
 
     @Test
     fun validateInitialUI() {
+
     }
 
 }
