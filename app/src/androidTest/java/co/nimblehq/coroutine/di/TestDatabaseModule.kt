@@ -1,4 +1,4 @@
-package co.nimblehq.coroutines.di
+package co.nimblehq.coroutine.di
 
 import android.content.Context
 import androidx.room.Room

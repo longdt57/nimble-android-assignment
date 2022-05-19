@@ -1,4 +1,4 @@
-package co.nimblehq.coroutines.mockrepository
+package co.nimblehq.coroutine.mockrepository
 
 import co.nimble.lee.assignment.domain.repository.LogoutRepository
 

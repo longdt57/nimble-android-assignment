@@ -1,4 +1,4 @@
-package co.nimblehq.coroutines
+package co.nimblehq.coroutine
 
 /*
  * Copyright (C) 2019 The Android Open Source Project

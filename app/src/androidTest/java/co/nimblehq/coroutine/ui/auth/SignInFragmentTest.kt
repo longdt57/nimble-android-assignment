@@ -1,4 +1,4 @@
-package co.nimblehq.coroutines.ui.auth
+package co.nimblehq.coroutine.ui.auth
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
@@ -14,7 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import co.nimble.lee.assignment.R
 import co.nimble.lee.assignment.ui.screens.auth.SignInFragment
-import co.nimblehq.coroutines.launchFragmentInHiltContainer
+import co.nimblehq.coroutine.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.CoreMatchers.not

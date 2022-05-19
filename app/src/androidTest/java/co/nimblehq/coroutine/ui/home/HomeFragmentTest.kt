@@ -1,11 +1,11 @@
-package co.nimblehq.coroutines.ui.home
+package co.nimblehq.coroutine.ui.home
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import co.nimble.lee.assignment.ui.screens.home.HomeFragment
-import co.nimblehq.coroutines.launchFragmentInHiltContainer
+import co.nimblehq.coroutine.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
